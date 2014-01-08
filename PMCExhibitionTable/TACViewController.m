@@ -8,6 +8,7 @@
 
 #import "TACViewController.h"
 #import "CommandExporter.h"
+#import "TACSettingManager.h"
 
 #define HOST_IP_ADDRESS @"192.168.1.105"
 #define LOCAL_IP_ADDRESS @"127.0.0.1"
@@ -27,7 +28,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     /* !!!: ----------- socket测试 ----------- */
     asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self
@@ -52,20 +53,27 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host
           port:(uint16_t)port {
-    NSLog(@"connect successfully. View Controller");
+    NSLog(@"connect successfully. Setting initialize");
     
-    [asyncSocket writeData:[SET_HEIGH(188) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [self writeSettingParameter];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    NSLog(@"tag = %ld", tag);
+}
+
+#pragma mark - Helper Methods
+
+- (void)writeSettingParameter
+{
+    [asyncSocket writeData:[SET_HEIGH(personHeight) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[START_MOTOR(1) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[ROTATE_MOTOR_CLOCKWISE(2) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[ROTATE_MOTOR_COUNTERCLOCKWISE(3) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:88];
     [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(4, 23.4) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"tag = %ld", tag);
 }
 
 @end

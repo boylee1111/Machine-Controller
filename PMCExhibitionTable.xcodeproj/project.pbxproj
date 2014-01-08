@@ -10,6 +10,7 @@
 		2931D252187D294000752049 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2931D251187D294000752049 /* SettingViewController.m */; };
 		29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29603E2B187D745200F562C7 /* InsetsLabel.m */; };
 		706BCFB455AF4476A221DBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10653A32EAB472B9B1AC03B /* libPods.a */; };
+		A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A077A672187D86AE008F97A4 /* TACSettingManager.m */; };
 		D8E25428187AC2D500C0913E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25427187AC2D500C0913E /* Foundation.framework */; };
 		D8E2542A187AC2D500C0913E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25429187AC2D500C0913E /* CoreGraphics.framework */; };
 		D8E2542C187AC2D500C0913E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2542B187AC2D500C0913E /* UIKit.framework */; };
@@ -42,6 +43,8 @@
 		29603E2A187D745200F562C7 /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InsetsLabel.h; path = ../InsetsLabel.h; sourceTree = "<group>"; };
 		29603E2B187D745200F562C7 /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InsetsLabel.m; path = ../InsetsLabel.m; sourceTree = "<group>"; };
 		A01FEA7B187D5CE600B6434F /* CommandExporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandExporter.h; sourceTree = "<group>"; };
+		A077A671187D86AE008F97A4 /* TACSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACSettingManager.h; sourceTree = "<group>"; };
+		A077A672187D86AE008F97A4 /* TACSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACSettingManager.m; sourceTree = "<group>"; };
 		B10653A32EAB472B9B1AC03B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFEB267D0ADF4698BBE6891E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D8E25424187AC2D500C0913E /* PMCExhibitionTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMCExhibitionTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,17 +128,19 @@
 		D8E2542D187AC2D500C0913E /* PMCExhibitionTable */ = {
 			isa = PBXGroup;
 			children = (
-				29603E2A187D745200F562C7 /* InsetsLabel.h */,
-				29603E2B187D745200F562C7 /* InsetsLabel.m */,
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
 				D8E2543F187AC2D500C0913E /* Images.xcassets */,
+				29603E2A187D745200F562C7 /* InsetsLabel.h */,
+				29603E2B187D745200F562C7 /* InsetsLabel.m */,
 				D8E25439187AC2D500C0913E /* Main.storyboard */,
-				D8E25436187AC2D500C0913E /* TACAppDelegate.h */,
-				D8E25437187AC2D500C0913E /* TACAppDelegate.m */,
-				D8E2543C187AC2D500C0913E /* TACViewController.h */,
-				D8E2543D187AC2D500C0913E /* TACViewController.m */,
 				2931D250187D294000752049 /* SettingViewController.h */,
 				2931D251187D294000752049 /* SettingViewController.m */,
+				D8E25436187AC2D500C0913E /* TACAppDelegate.h */,
+				D8E25437187AC2D500C0913E /* TACAppDelegate.m */,
+				A077A671187D86AE008F97A4 /* TACSettingManager.h */,
+				A077A672187D86AE008F97A4 /* TACSettingManager.m */,
+				D8E2543C187AC2D500C0913E /* TACViewController.h */,
+				D8E2543D187AC2D500C0913E /* TACViewController.m */,
 				D8E2543F187AC2D500C0913E /* Images.xcassets */,
 				D8E2542E187AC2D500C0913E /* Supporting Files */,
 			);
@@ -305,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */,
+				A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */,
 				D8E25434187AC2D500C0913E /* main.m in Sources */,
 				D8E2543E187AC2D500C0913E /* TACViewController.m in Sources */,
 				D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */,
