@@ -87,10 +87,17 @@
         label.layer.borderColor = [UIColor blackColor].CGColor;
         [self.view addSubview:label];
         
-        upButtonRect = CGRectMake(10, 10, 25, 25);
+        upButtonRect = CGRectMake(x + width- 25, y + 5 + i* difference, 20, 20);
         upButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [upButton setFrame:upButtonRect];
         [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+        [self.view addSubview:upButton];
+        
+        downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
+        downButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [downButton setFrame:downButtonRect];
+        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+        [self.view addSubview:downButton];
         
     }
     
@@ -113,6 +120,18 @@
         label.layer.borderWidth = 3.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         [self.view addSubview:label];
+        
+        upButtonRect = CGRectMake(x + width- 25, y + 5 + i* difference, 20, 20);
+        upButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [upButton setFrame:upButtonRect];
+        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+        [self.view addSubview:upButton];
+        
+        downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
+        downButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [downButton setFrame:downButtonRect];
+        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+        [self.view addSubview:downButton];
     }
     
     //Time
@@ -134,6 +153,18 @@
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     [self.view addSubview:label];
+    
+    upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
+    upButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [upButton setFrame:upButtonRect];
+    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+    [self.view addSubview:upButton];
+    
+    downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
+    downButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [downButton setFrame:downButtonRect];
+    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+    [self.view addSubview:downButton];
 
     //Height
     x = 482.0f;
@@ -154,6 +185,18 @@
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     [self.view addSubview:label];
+    
+    upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
+    upButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [upButton setFrame:upButtonRect];
+    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+    [self.view addSubview:upButton];
+    
+    downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
+    downButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [downButton setFrame:downButtonRect];
+    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+    [self.view addSubview:downButton];
     
 }
 
