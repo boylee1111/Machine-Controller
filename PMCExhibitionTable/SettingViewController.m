@@ -60,25 +60,38 @@
     CGFloat difference = 68.0f;
     CGFloat width = 166.0f;
     CGFloat height = 55.0f;
-    CGRect rect;
+    CGRect labelRect;
+    UIEdgeInsets edge = UIEdgeInsetsMake(0, 10.0f, 0, 0);
     UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
+    
+    CGRect upButtonRect;
+    CGRect downButtonRect;
+    
     InsetsLabel* label;
+    UIButton* upButton;
+    UIButton* downButton;
     
     //Maximum Speed Setting
     for (NSInteger i = 0; i < 7; i++) {
         
-        rect = CGRectMake(x, y + i * difference, width, height);
+        labelRect = CGRectMake(x, y + i * difference, width, height);
         
-        label = [[InsetsLabel alloc]initWithFrame:rect];
+        label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
         
         label.font = font;
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.tag = 1;
+        label.tag = 10 + i;
         label.layer.borderWidth = 3.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         [self.view addSubview:label];
+        
+        upButtonRect = CGRectMake(10, 10, 25, 25);
+        upButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [upButton setFrame:upButtonRect];
+        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+        
     }
     
     
@@ -86,17 +99,17 @@
     x = 792;
     for (NSInteger i = 0; i < 7; i++) {
         
-        rect = CGRectMake(x, y + i * difference, width, height);
+        labelRect = CGRectMake(x, y + i * difference, width, height);
         
         font = [UIFont boldSystemFontOfSize:28.0f];
         
-        label = [[InsetsLabel alloc]initWithFrame:rect];
+        label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
         
         label.font = font;
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.tag = 1;
+        label.tag = 20 + i;
         label.layer.borderWidth = 3.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         [self.view addSubview:label];
@@ -107,17 +120,17 @@
     y = 246.0f;
     width = 146.0f;
     height = 55.0f;
-    rect = CGRectMake(x, y , width, height);
+    labelRect = CGRectMake(x, y , width, height);
     
     font = [UIFont boldSystemFontOfSize:28.0f];
     
-    label = [[InsetsLabel alloc]initWithFrame:rect];
+    label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
     
     label.font = font;
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"2 mins";
-    label.tag = 1;
+    label.tag = 30;
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     [self.view addSubview:label];
@@ -127,17 +140,17 @@
     y = 448.0f;
     width = 146.0f;
     height = 55.0f;
-    rect = CGRectMake(x, y , width, height);
+    labelRect = CGRectMake(x, y , width, height);
     
     font = [UIFont boldSystemFontOfSize:28.0f];
     
-    label = [[InsetsLabel alloc]initWithFrame:rect];
+    label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
     
     label.font = font;
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"1.70m";
-    label.tag = 1;
+    label.tag = 40;
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     [self.view addSubview:label];

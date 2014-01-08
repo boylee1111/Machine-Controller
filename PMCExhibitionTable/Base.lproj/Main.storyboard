@@ -276,6 +276,13 @@ Settings</string>
                                 <rect key="frame" x="261" y="226" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKk-i1-jXT">
+                                <rect key="frame" x="236" y="684" width="124" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ametekButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -313,7 +320,7 @@ Settings</string>
         <image name="rotronButton" width="111" height="46"/>
         <image name="rotronLogo" width="94" height="19"/>
         <image name="sButton" width="19" height="20"/>
-        <image name="settingbackground" width="679" height="479"/>
+        <image name="settingbackground" width="339" height="239"/>
         <image name="stopButton" width="29" height="28"/>
         <image name="windjamerButton" width="129" height="51"/>
         <image name="windjammerLogo" width="146" height="38"/>
