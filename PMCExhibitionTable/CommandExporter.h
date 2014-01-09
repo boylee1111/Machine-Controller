@@ -9,7 +9,7 @@
 #ifndef PMCExhibitionTable_CommandExporter_h
 #define PMCExhibitionTable_CommandExporter_h
 
-#define SET_HEIGH(height) [NSString stringWithFormat:@"%s%d\n", "HEIGHT_",height]
+#define SET_HEIGH(height) [NSString stringWithFormat:@"%s%ld\n", "HEIGHT_",height]
 
 #define START_ALL_MOTORS_MSG @"START_ALL\n"
 #define STOP_ALL_MOTORS_MSG @"STOP_ALL\n"

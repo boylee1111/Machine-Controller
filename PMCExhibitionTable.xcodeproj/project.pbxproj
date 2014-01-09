@@ -93,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A07ACBF6187E824200F8479D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				29603E2A187D745200F562C7 /* InsetsLabel.h */,
+				29603E2B187D745200F562C7 /* InsetsLabel.m */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		D8E2541B187AC2D500C0913E = {
 			isa = PBXGroup;
 			children = (
@@ -128,10 +137,9 @@
 		D8E2542D187AC2D500C0913E /* PMCExhibitionTable */ = {
 			isa = PBXGroup;
 			children = (
+				A07ACBF6187E824200F8479D /* Components */,
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
 				D8E2543F187AC2D500C0913E /* Images.xcassets */,
-				29603E2A187D745200F562C7 /* InsetsLabel.h */,
-				29603E2B187D745200F562C7 /* InsetsLabel.m */,
 				D8E25439187AC2D500C0913E /* Main.storyboard */,
 				2931D250187D294000752049 /* SettingViewController.h */,
 				2931D251187D294000752049 /* SettingViewController.m */,

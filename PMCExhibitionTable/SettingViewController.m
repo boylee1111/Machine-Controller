@@ -7,8 +7,8 @@
 //
 
 #import "SettingViewController.h"
-#import "InsetsLabel.h"
 #import "TACSettingManager.h"
+#import "InsetsLabel.h"
 
 #define MOTOR_COUNT 7
 
@@ -20,10 +20,20 @@
 #define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON 430
 #define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON 460
 
-#define TAG_FOR_DEMO_MODE_TIME 500
-#define TAG_FOR_HEIGHT 600
+#define TAG_FOR_DEMO_MODE_TIME_LABEL 500
+#define TAG_FOR_DEMO_MODE_TIME_UP_BUTTON 530
+#define TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON 560
 
-@interface SettingViewController ()
+#define TAG_FOR_HEIGHT_LABEL 600
+#define TAG_FOR_HEIGHT_UP_BUTTON 630
+#define TAG_FOR_HEIGHT_DOWN_BUTTON 660
+
+#define BACK_TO_MAIN_TIME_INTERVAL 60
+
+@interface SettingViewController () {
+    NSTimer *backTimer;
+}
+
 @end
 
 @implementation SettingViewController
@@ -49,13 +59,35 @@
     [super viewDidLoad];
     
     [self addSettingLabelsAndButtons];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(resetTimer)];
+    longPress.minimumPressDuration = 0;
+    [self.view addGestureRecognizer:longPress];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    // TODO: 使用TACSettingManager读取数据用于更新各个控件
+    [self updateLabelsAndButtonStatus];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:BACK_TO_MAIN_TIME_INTERVAL
+                                                 target:self
+                                               selector:@selector(backViaTiming)
+                                               userInfo:nil
+                                                repeats:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [backTimer invalidate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,77 +98,142 @@
 
 #pragma mark - Button Action
 
-// TODO: Button点击动作，改变label数值，还需要增加Press动作，快速改变数值
+// TODO: 需要ButtonPress动作，快速改变数值
 
 - (void)upButtonInMaxSpeedSettingClicked:(UIButton *)sender
 {
-    NSLog(@"up max");
+    NSUInteger num = sender.tag - BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON;
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
+    NSUInteger value = [label.text integerValue];
+    label.text = [NSString stringWithFormat:@"%ld%@", ++value, @"rpm"];
+    
+    if (value == MAX_SPEED) sender.enabled = NO;
+    UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON + num];
+    downButton.enabled = YES;
+    UIButton *defaultUpButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
+    defaultUpButton.enabled = YES;
 }
 
 - (void)downButtonInMaxSpeedSettingClicked:(UIButton *)sender
 {
-    NSLog(@"down max");
+    NSUInteger num = sender.tag - BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON;
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
+    NSUInteger value = [label.text integerValue];
+    label.text = [NSString stringWithFormat:@"%ld%@", --value, @"rpm"];
+    
+    InsetsLabel *defaultLabel = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
+    NSUInteger defaultValue = [defaultLabel.text integerValue];
+    if (defaultValue > value) {
+        defaultLabel.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
+        UIButton *defaultUpButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
+        defaultUpButton.enabled = NO;
+    }
+    
+    if (value == MIN_SPEED_FOR_MAX_SPEED) sender.enabled = NO;
+    UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON + num];
+    upButton.enabled = YES;
 }
 
 - (void)upButtonInDefaultSpeedSettingClicked:(UIButton *)sender
 {
-    NSLog(@"up default");
+    NSUInteger num = sender.tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON;
+    InsetsLabel *maxLabel = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
+    NSUInteger maxValue = [maxLabel.text integerValue];
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
+    NSUInteger value = [label.text integerValue];
+    
+    if (value == MIN_SPEED) value = LIMIT_SPEED;
+    else value++;
+    label.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
+    
+    if (value == maxValue) sender.enabled = NO;
+    UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON + num];
+    downButton.enabled = YES;
 }
 
 - (void)downButtonInDefaultSpeedSettingClicked:(UIButton *)sender
 {
-    NSLog(@"down default");
+    NSUInteger num = sender.tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON;
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
+    NSUInteger value = [label.text integerValue];
+    
+    if (value == LIMIT_SPEED) {
+        value = MIN_SPEED;
+        sender.enabled = NO;
+    } else {
+        value--;
+    }
+    label.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
+    UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
+    upButton.enabled = YES;
 }
 
 - (void)upButtonOfDemoModeClicked:(UIButton *)sender
 {
-    NSLog(@"up demo");
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
+    NSUInteger value = [self getSecondsFromFormatTime:label.text];
+    label.text = [self getFormatTimeFromSeconds:++value];
+    
+    if (value == MAX_DEMO_MODE_TIME) sender.enabled = NO;
+    UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON];
+    downButton.enabled = YES;
 }
 
 - (void)downButtonOfDemoModeClicked:(UIButton *)sender
 {
-    NSLog(@"down demo");
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
+    NSUInteger value = [self getSecondsFromFormatTime:label.text];
+    label.text = [self getFormatTimeFromSeconds:--value];
+    
+    if (value == MIN_DEMO_MODE_TIME) sender.enabled = NO;
+    UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_UP_BUTTON];
+    upButton.enabled = YES;
 }
 
 - (void)upButtonOfHeightClicked:(UIButton *)sender
 {
-    NSLog(@"up height");
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
+    NSUInteger value = [label.text floatValue] * 100;
+    label.text = [NSString stringWithFormat:@"%.2f%@", ++value / 100.0, @" m"];
+    
+    if (value == MAX_HEIGHT) sender.enabled = NO;
+    UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_DOWN_BUTTON];
+    downButton.enabled = YES;
 }
 
 - (void)downButtonOfHeightClicked:(UIButton *)sender
 {
-    NSLog(@"down height");
+    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
+    NSUInteger value = [label.text floatValue] * 100;
+    label.text = [NSString stringWithFormat:@"%.2f%@", --value / 100.0, @" m"];
+    
+    if (value == MIN_HEIGHT) sender.enabled = NO;
+    UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_UP_BUTTON];
+    upButton.enabled = YES;
 }
 
 - (IBAction)close:(id)sender
-{    
-    InsetsLabel *label = nil;
+{
+    [self saveDataToUserDefault];
     
-    // Max speed
-    for (int i = 1; i <= MOTOR_COUNT; ++i) {
-        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i];
-        NSUInteger value = [label.text integerValue];
-        [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
-                                                     withSpeed:value];
-    }
-    
-    // Default speed
-    for (int i = 1; i < MOTOR_COUNT; ++i) {
-        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i];
-        NSUInteger value = [label.text integerValue];
-        [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
-                                                         withSpeed:value];
-    }
-    
-    // Time
-    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME];
-    NSUInteger time = [label.text integerValue];
-    [[TACSettingManager sharedManager] setDemoModeTime:time];
-    
-    // Height
-    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT];
-    NSUInteger height = [label.text integerValue];
-    [[TACSettingManager sharedManager] setHeight:height];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Selectors
+
+- (void)resetTimer
+{
+    [backTimer invalidate];
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:BACK_TO_MAIN_TIME_INTERVAL
+                                                 target:self
+                                               selector:@selector(backViaTiming)
+                                               userInfo:nil
+                                                repeats:NO];
+}
+
+- (void)backViaTiming
+{
+    [self saveDataToUserDefault];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -204,20 +301,22 @@
         upButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [upButton setFrame:upButtonRect];
         [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
         upButton.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON + i;
         [upButton addTarget:self
                      action:@selector(upButtonInMaxSpeedSettingClicked:)
-           forControlEvents:UIControlEventTouchUpInside];
+           forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:upButton];
         
         downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
         downButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [downButton setFrame:downButtonRect];
         [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
         downButton.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON + i;
         [downButton addTarget:self
                        action:@selector(downButtonInMaxSpeedSettingClicked:)
-             forControlEvents:UIControlEventTouchUpInside];
+             forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:downButton];
     }
     
@@ -244,27 +343,29 @@
         upButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [upButton setFrame:upButtonRect];
         [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
         upButton.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + i;
         [upButton addTarget:self
                      action:@selector(upButtonInDefaultSpeedSettingClicked:)
-           forControlEvents:UIControlEventTouchUpInside];
+           forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:upButton];
         
         downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
         downButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [downButton setFrame:downButtonRect];
         [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
         downButton.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON + i;
         [downButton addTarget:self
                        action:@selector(downButtonInDefaultSpeedSettingClicked:)
-             forControlEvents:UIControlEventTouchUpInside];
+             forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:downButton];
     }
     
     //Time
     x = 458.0f;
     y = 246.0f;
-    width = 146.0f;
+    width = 170.0f;
     height = 55.0f;
     labelRect = CGRectMake(x, y , width, height);
     
@@ -278,25 +379,29 @@
     label.text = @"2 mins";
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
-    label.tag = TAG_FOR_DEMO_MODE_TIME;
+    label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
     
     upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
     upButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [upButton setFrame:upButtonRect];
     [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
+    upButton.tag = TAG_FOR_DEMO_MODE_TIME_UP_BUTTON;
     [upButton addTarget:self
                  action:@selector(upButtonOfDemoModeClicked:)
-       forControlEvents:UIControlEventTouchUpInside];
+       forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:upButton];
     
     downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
     downButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [downButton setFrame:downButtonRect];
     [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
+    downButton.tag = TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON;
     [downButton addTarget:self
                    action:@selector(downButtonOfDemoModeClicked:)
-         forControlEvents:UIControlEventTouchUpInside];
+         forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:downButton];
     
     //Height
@@ -316,26 +421,148 @@
     label.text = @"1.70m";
     label.layer.borderWidth = 3.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
-    label.tag = TAG_FOR_HEIGHT;
+    label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
     
     upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
     upButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [upButton setFrame:upButtonRect];
     [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
+    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
+    upButton.tag = TAG_FOR_HEIGHT_UP_BUTTON;
     [upButton addTarget:self
                  action:@selector(upButtonOfHeightClicked:)
-       forControlEvents:UIControlEventTouchUpInside];
+       forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:upButton];
     
     downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
     downButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [downButton setFrame:downButtonRect];
     [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
+    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
+    downButton.tag = TAG_FOR_HEIGHT_DOWN_BUTTON;
     [downButton addTarget:self
                    action:@selector(downButtonOfHeightClicked:)
-         forControlEvents:UIControlEventTouchUpInside];
+         forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:downButton];
+}
+
+- (void)updateLabelsAndButtonStatus
+{
+    InsetsLabel *label = nil;
+    
+    // Max speed
+    for (int i = 1; i <= MOTOR_COUNT; ++i) {
+        NSUInteger maxSpeed = [[TACSettingManager sharedManager] maxSpeedOfMotor:i];
+        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i];
+        label.text = [NSString stringWithFormat:@"%ld%@", maxSpeed, @"rpm"];
+        
+        if (maxSpeed == MAX_SPEED) {
+            UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON + i];
+            upButton.enabled = NO;
+        } else if (maxSpeed == MIN_SPEED_FOR_MAX_SPEED) {
+            UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON + i];
+            downButton.enabled = NO;
+        }
+    }
+    
+    // Default speed
+    for (int i = 1; i < MOTOR_COUNT; ++i) {
+        NSUInteger defaultSpeed = [[TACSettingManager sharedManager] defaultSpeedOfMotor:i];
+        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i];
+        label.text = [NSString stringWithFormat:@"%ld%@", defaultSpeed, @"rpm"];
+        
+        NSUInteger maxSpeed = [[TACSettingManager sharedManager] maxSpeedOfMotor:i];
+        if (defaultSpeed == maxSpeed) {
+            UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + i];
+            upButton.enabled = NO;
+        } else if (defaultSpeed == MIN_SPEED) {
+            UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON + i];
+            downButton.enabled = NO;
+        }
+    }
+    
+    // Time
+    NSUInteger time = [TACSettingManager sharedManager].DemoModeTime;
+    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
+    label.text = [self getFormatTimeFromSeconds:time];
+    
+    if (time == MAX_DEMO_MODE_TIME) {
+        UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_UP_BUTTON];
+        upButton.enabled = NO;
+    } else if (time == MIN_DEMO_MODE_TIME) {
+        UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON];
+        downButton.enabled = NO;
+    }
+    
+    // Height
+    NSUInteger height = [TACSettingManager sharedManager].Height;
+    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
+    label.text = [NSString stringWithFormat:@"%.2f%@", height / 100.0, @" m"];
+    
+    if (height == MAX_HEIGHT) {
+        UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_UP_BUTTON];
+        upButton.enabled = NO;
+    } else if (height == MIN_HEIGHT) {
+        UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_DOWN_BUTTON];
+        downButton.enabled = NO;
+    }
+}
+
+- (void)saveDataToUserDefault
+{
+    InsetsLabel *label = nil;
+    
+    // Max speed
+    for (int i = 1; i <= MOTOR_COUNT; ++i) {
+        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i];
+        NSUInteger value = [label.text integerValue];
+        [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
+                                                     withSpeed:value];
+    }
+    
+    // Default speed
+    for (int i = 1; i < MOTOR_COUNT; ++i) {
+        label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i];
+        NSUInteger value = [label.text integerValue];
+        [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
+                                                         withSpeed:value];
+    }
+    
+    // Time
+    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
+    NSUInteger time =[self getSecondsFromFormatTime:label.text];
+    [[TACSettingManager sharedManager] setDemoModeTime:time];
+    
+    // Height
+    label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
+    CGFloat height = [label.text floatValue];
+    [[TACSettingManager sharedManager] setHeight:height * 100];
+}
+
+- (NSString *)getFormatTimeFromSeconds:(NSUInteger)seconds
+{
+    NSUInteger min = seconds / 60;
+    NSUInteger sec = seconds % 60;
+    
+    if (min == 0)       return [NSString stringWithFormat:@"%ld%@", sec, @"s"];
+    else if (sec == 0)  return [NSString stringWithFormat:@"%ld%@", min, @"mins"];
+    else                return [NSString stringWithFormat:@"%ld%@%ld%@", min, @"mins ", sec, @"s"];
+}
+
+- (NSUInteger)getSecondsFromFormatTime:(NSString *)formatTime
+{
+    NSUInteger seconds = 0;
+    
+    NSArray *values = [formatTime componentsSeparatedByString:@"mins"];
+    if ([values count] == 2) {
+        seconds = [values[0] integerValue] * 60 + [values[1] integerValue];
+    } else {
+        seconds = [formatTime integerValue];
+        if ([formatTime rangeOfString:@"mins"].location != NSNotFound) seconds *= 60;
+    }
+    
+    return seconds;
 }
 
 @end
