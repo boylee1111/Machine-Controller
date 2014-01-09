@@ -17,8 +17,11 @@
 
 + (TACSettingManager *)sharedManager;
 
-- (NSUInteger)speedOfMotor:(NSUInteger)number;
-- (CGFloat)speedOfMotorWithPercent:(NSUInteger)number;
-- (void)setSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed;
+- (NSUInteger)maxSpeedOfMotor:(NSUInteger)number;
+- (void)setMaxSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed;
+
+- (NSUInteger)defaultSpeedOfMotor:(NSUInteger)number;
+- (CGFloat)defaultSpeedOfMotorWithPercent:(NSUInteger)number;
+- (void)setDefaultSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed;
 
 @end

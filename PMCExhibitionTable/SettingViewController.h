@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *DefaultSpeedBar;
 @property (strong, nonatomic) IBOutlet UILabel *DefaultHeightBar;
 @property (strong, nonatomic) IBOutlet UILabel *SpeedInputBox;
+
 - (IBAction)close:(id)sender;
 
 @end

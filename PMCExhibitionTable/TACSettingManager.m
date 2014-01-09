@@ -10,13 +10,22 @@
 
 #define kDemoModeTime @"demonModeTime"
 #define kHeight @"height"
-#define kLogoOneSpeed @"LogoOneSpeed"
-#define kLogoTwoSpeed @"LogoTwoSpeed"
-#define kLogoThreeSpeed @"LogoThreeSpeed"
-#define kLogoFourSpeed @"LogoFourSpeed"
-#define kLogoFiveSpeed @"LogoFiveSpeed"
-#define kLogoSixSpeed @"LogoSixSpeed"
-#define kLogoSevenSpeed @"LogoSevenSpeed"
+
+#define kLogoOneMaxSpeed @"LogoOneMaxSpeed"
+#define kLogoTwoMaxSpeed @"LogoTwoMaxSpeed"
+#define kLogoThreeMaxSpeed @"LogoThreeMaxSpeed"
+#define kLogoFourMaxSpeed @"LogoFourMaxSpeed"
+#define kLogoFiveMaxSpeed @"LogoFiveMaxSpeed"
+#define kLogoSixMaxSpeed @"LogoSixMaxSpeed"
+#define kLogoSevenMaxSpeed @"LogoSevenMaxSpeed"
+
+#define kLogoOneDefaultSpeed @"LogoOneDefaultSpeed"
+#define kLogoTwoDefaultSpeed @"LogoTwoDefaultSpeed"
+#define kLogoThreeDefaultSpeed @"LogoThreeDefaultSpeed"
+#define kLogoFourDefaultSpeed @"LogoFourDefaultSpeed"
+#define kLogoFiveDefaultSpeed @"LogoFiveDefaultSpeed"
+#define kLogoSixDefaultSpeed @"LogoSixDefaultSpeed"
+#define kLogoSevenDefaultSpeed @"LogoSevenDefaultSpeed"
 
 #define DEFAULT_DEMO_MODE_TIME 120
 #define DEFAULT_HEIGHT 170
@@ -26,13 +35,21 @@
 
 @property (nonatomic, weak) NSUserDefaults *ud;
 
-@property (nonatomic) NSUInteger LogoOneSpeed;
-@property (nonatomic) NSUInteger LogoTwoSpeed;
-@property (nonatomic) NSUInteger LogoThreeSpeed;
-@property (nonatomic) NSUInteger LogoFourSpeed;
-@property (nonatomic) NSUInteger LogoFiveSpeed;
-@property (nonatomic) NSUInteger LogoSixSpeed;
-@property (nonatomic) NSUInteger LogoSevenSpeed;
+@property (nonatomic) NSUInteger LogoOneMaxSpeed;
+@property (nonatomic) NSUInteger LogoTwoMaxSpeed;
+@property (nonatomic) NSUInteger LogoThreeMaxSpeed;
+@property (nonatomic) NSUInteger LogoFourMaxSpeed;
+@property (nonatomic) NSUInteger LogoFiveMaxSpeed;
+@property (nonatomic) NSUInteger LogoSixMaxSpeed;
+@property (nonatomic) NSUInteger LogoSevenMaxSpeed;
+
+@property (nonatomic) NSUInteger LogoOneDefaultSpeed;
+@property (nonatomic) NSUInteger LogoTwoDefaultSpeed;
+@property (nonatomic) NSUInteger LogoThreeDefaultSpeed;
+@property (nonatomic) NSUInteger LogoFourDefaultSpeed;
+@property (nonatomic) NSUInteger LogoFiveDefaultSpeed;
+@property (nonatomic) NSUInteger LogoSixDefaultSpeed;
+@property (nonatomic) NSUInteger LogoSevenDefaultSpeed;
 
 @end
 
@@ -55,54 +72,86 @@
 
         self.DemoModeTime == 0 ? self.DemoModeTime = DEFAULT_DEMO_MODE_TIME : self.DemoModeTime;
         self.Height == 0 ? self.Height = DEFAULT_HEIGHT : self.Height;
-        self.LogoOneSpeed   == 0 ? self.LogoOneSpeed   = DEFAULT_SPEED : self.LogoOneSpeed;
-        self.LogoTwoSpeed   == 0 ? self.LogoTwoSpeed   = DEFAULT_SPEED : self.LogoTwoSpeed;
-        self.LogoThreeSpeed == 0 ? self.LogoThreeSpeed = DEFAULT_SPEED : self.LogoThreeSpeed;
-        self.LogoFourSpeed  == 0 ? self.LogoFourSpeed  = DEFAULT_SPEED : self.LogoFourSpeed;
-        self.LogoFiveSpeed  == 0 ? self.LogoFiveSpeed  = DEFAULT_SPEED : self.LogoFiveSpeed;
-        self.LogoSixSpeed   == 0 ? self.LogoSixSpeed   = DEFAULT_SPEED : self.LogoSixSpeed;
-        self.LogoSevenSpeed == 0 ? self.LogoSevenSpeed = DEFAULT_SPEED : self.LogoSevenSpeed;
+        
+        self.LogoOneMaxSpeed   == 0 ? self.LogoOneMaxSpeed   = MAX_SPEED : self.LogoOneMaxSpeed;
+        self.LogoTwoMaxSpeed   == 0 ? self.LogoTwoMaxSpeed   = MAX_SPEED : self.LogoTwoMaxSpeed;
+        self.LogoThreeMaxSpeed == 0 ? self.LogoThreeMaxSpeed = MAX_SPEED : self.LogoThreeMaxSpeed;
+        self.LogoFourMaxSpeed  == 0 ? self.LogoFourMaxSpeed  = MAX_SPEED : self.LogoFourMaxSpeed;
+        self.LogoFiveMaxSpeed  == 0 ? self.LogoFiveMaxSpeed  = MAX_SPEED : self.LogoFiveMaxSpeed;
+        self.LogoSixMaxSpeed   == 0 ? self.LogoSixMaxSpeed   = MAX_SPEED : self.LogoSixMaxSpeed;
+        self.LogoSevenMaxSpeed == 0 ? self.LogoSevenMaxSpeed = MAX_SPEED : self.LogoSevenMaxSpeed;
+        
+        self.LogoOneDefaultSpeed   == 0 ? self.LogoOneDefaultSpeed   = DEFAULT_SPEED : self.LogoOneDefaultSpeed;
+        self.LogoTwoDefaultSpeed   == 0 ? self.LogoTwoDefaultSpeed   = DEFAULT_SPEED : self.LogoTwoDefaultSpeed;
+        self.LogoThreeDefaultSpeed == 0 ? self.LogoThreeDefaultSpeed = DEFAULT_SPEED : self.LogoThreeDefaultSpeed;
+        self.LogoFourDefaultSpeed  == 0 ? self.LogoFourDefaultSpeed  = DEFAULT_SPEED : self.LogoFourDefaultSpeed;
+        self.LogoFiveDefaultSpeed  == 0 ? self.LogoFiveDefaultSpeed  = DEFAULT_SPEED : self.LogoFiveDefaultSpeed;
+        self.LogoSixDefaultSpeed   == 0 ? self.LogoSixDefaultSpeed   = DEFAULT_SPEED : self.LogoSixDefaultSpeed;
+        self.LogoSevenDefaultSpeed == 0 ? self.LogoSevenDefaultSpeed = DEFAULT_SPEED : self.LogoSevenDefaultSpeed;
     }
     return self;
 }
 
-- (NSUInteger)speedOfMotor:(NSUInteger)number
+- (NSUInteger)maxSpeedOfMotor:(NSUInteger)number
 {
-    if (number == 1) return self.LogoOneSpeed;
-    if (number == 2) return self.LogoTwoSpeed;
-    if (number == 3) return self.LogoThreeSpeed;
-    if (number == 4) return self.LogoFourSpeed;
-    if (number == 5) return self.LogoFiveSpeed;
-    if (number == 6) return self.LogoSixSpeed;
-    if (number == 7) return self.LogoSevenSpeed;
+    if (number == 1) return self.LogoOneMaxSpeed;
+    if (number == 2) return self.LogoTwoMaxSpeed;
+    if (number == 3) return self.LogoThreeMaxSpeed;
+    if (number == 4) return self.LogoFourMaxSpeed;
+    if (number == 5) return self.LogoFiveMaxSpeed;
+    if (number == 6) return self.LogoSixMaxSpeed;
+    if (number == 7) return self.LogoSevenMaxSpeed;
     
+    return MAX_SPEED;
+}
+
+- (void)setMaxSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed
+{
+    if (number == 1) self.LogoOneMaxSpeed = speed;
+    if (number == 2) self.LogoTwoMaxSpeed = speed;
+    if (number == 3) self.LogoThreeMaxSpeed = speed;
+    if (number == 4) self.LogoFourMaxSpeed = speed;
+    if (number == 5) self.LogoFiveMaxSpeed = speed;
+    if (number == 6) self.LogoSixMaxSpeed = speed;
+    if (number == 7) self.LogoSevenMaxSpeed = speed;
+}
+
+- (NSUInteger)defaultSpeedOfMotor:(NSUInteger)number
+{
+    if (number == 1) return self.LogoOneDefaultSpeed;
+    if (number == 2) return self.LogoTwoDefaultSpeed;
+    if (number == 3) return self.LogoThreeDefaultSpeed;
+    if (number == 4) return self.LogoFourDefaultSpeed;
+    if (number == 5) return self.LogoFiveDefaultSpeed;
+    if (number == 6) return self.LogoSixDefaultSpeed;
+    if (number == 7) return self.LogoSevenDefaultSpeed;
     return DEFAULT_SPEED;
 }
 
-- (CGFloat)speedOfMotorWithPercent:(NSUInteger)number
+- (CGFloat)defaultSpeedOfMotorWithPercent:(NSUInteger)number
 {
     NSUInteger speed = DEFAULT_SPEED;
     
-    if (number == 1) speed = self.LogoOneSpeed;
-    if (number == 2) speed = self.LogoTwoSpeed;
-    if (number == 3) speed = self.LogoThreeSpeed;
-    if (number == 4) speed = self.LogoFourSpeed;
-    if (number == 5) speed = self.LogoFiveSpeed;
-    if (number == 6) speed = self.LogoSixSpeed;
-    if (number == 7) speed = self.LogoSevenSpeed;
+    if (number == 1) speed = self.LogoOneDefaultSpeed;
+    if (number == 2) speed = self.LogoTwoDefaultSpeed;
+    if (number == 3) speed = self.LogoThreeDefaultSpeed;
+    if (number == 4) speed = self.LogoFourDefaultSpeed;
+    if (number == 5) speed = self.LogoFiveDefaultSpeed;
+    if (number == 6) speed = self.LogoSixDefaultSpeed;
+    if (number == 7) speed = self.LogoSevenDefaultSpeed;
     
-    return DEFAULT_SPEED / MAX_SPEED;
+    return speed / MAX_SPEED;
 }
 
-- (void)setSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed
+- (void)setDefaultSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed
 {
-    if (number == 1) self.LogoOneSpeed = speed;
-    if (number == 2) self.LogoTwoSpeed = speed;
-    if (number == 3) self.LogoThreeSpeed = speed;
-    if (number == 4) self.LogoFourSpeed = speed;
-    if (number == 5) self.LogoFiveSpeed = speed;
-    if (number == 6) self.LogoSixSpeed = speed;
-    if (number == 7) self.LogoSevenSpeed = speed;
+    if (number == 1) self.LogoOneDefaultSpeed = speed;
+    if (number == 2) self.LogoTwoDefaultSpeed = speed;
+    if (number == 3) self.LogoThreeDefaultSpeed = speed;
+    if (number == 4) self.LogoFourDefaultSpeed = speed;
+    if (number == 5) self.LogoFiveDefaultSpeed = speed;
+    if (number == 6) self.LogoSixDefaultSpeed = speed;
+    if (number == 7) self.LogoSevenDefaultSpeed = speed;
 }
 
 #pragma mark - Getter
@@ -119,45 +168,91 @@
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoOneSpeed
+#pragma mark Max Speed
+
+- (NSUInteger)LogoOneMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoOneSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoOneMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoTwoSpeed
+- (NSUInteger)LogoTwoMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoTwoSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoTwoMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoThreeSpeed
+- (NSUInteger)LogoThreeMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoThreeSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoThreeMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoFourSpeed
+- (NSUInteger)LogoFourMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoFourSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoFourMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoFiveSpeed
+- (NSUInteger)LogoFiveMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoFiveSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoFiveMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoSixSpeed
+- (NSUInteger)LogoSixMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoSixSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoSixMaxSpeed];
     return [num unsignedIntegerValue];
 }
 
-- (NSUInteger)LogoSevenSpeed
+- (NSUInteger)LogoSevenMaxSpeed
 {
-    NSNumber *num = [self.ud objectForKey:kLogoSevenSpeed];
+    NSNumber *num = [self.ud objectForKey:kLogoSevenMaxSpeed];
+    return [num unsignedIntegerValue];
+}
+
+#pragma mark Default Speed
+
+- (NSUInteger)LogoOneDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoOneDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoTwoDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoTwoDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoThreeDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoThreeDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoFourDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoFourDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoFiveDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoFiveDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoSixDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoSixDefaultSpeed];
+    return [num unsignedIntegerValue];
+}
+
+- (NSUInteger)LogoSevenDefaultSpeed
+{
+    NSNumber *num = [self.ud objectForKey:kLogoSevenDefaultSpeed];
     return [num unsignedIntegerValue];
 }
 
@@ -175,45 +270,91 @@
     [self.ud synchronize];
 }
 
-- (void)setLogoOneSpeed:(NSUInteger)LogoOneSpeed
+#pragma mark Max Speed
+
+- (void)setLogoOneMaxSpeed:(NSUInteger)LogoOneSpeed
 {
-    [self.ud setObject:@(LogoOneSpeed) forKey:kLogoOneSpeed];
+    [self.ud setObject:@(LogoOneSpeed) forKey:kLogoOneMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoTwoSpeed:(NSUInteger)LogoTwoSpeed
+- (void)setLogoTwoMaxSpeed:(NSUInteger)LogoTwoSpeed
 {
-    [self.ud setObject:@(LogoTwoSpeed) forKey:kLogoTwoSpeed];
+    [self.ud setObject:@(LogoTwoSpeed) forKey:kLogoTwoMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoThreeSpeed:(NSUInteger)LogoThreeSpeed
+- (void)setLogoThreeMaxSpeed:(NSUInteger)LogoThreeSpeed
 {
-    [self.ud setObject:@(LogoThreeSpeed) forKey:kLogoThreeSpeed];
+    [self.ud setObject:@(LogoThreeSpeed) forKey:kLogoThreeMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoFourSpeed:(NSUInteger)LogoFourSpeed
+- (void)setLogoFourMaxSpeed:(NSUInteger)LogoFourSpeed
 {
-    [self.ud setObject:@(LogoFourSpeed) forKey:kLogoFourSpeed];
+    [self.ud setObject:@(LogoFourSpeed) forKey:kLogoFourMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoFiveSpeed:(NSUInteger)LogoFiveSpeed
+- (void)setLogoFiveMaxSpeed:(NSUInteger)LogoFiveSpeed
 {
-    [self.ud setObject:@(LogoFiveSpeed) forKey:kLogoFiveSpeed];
+    [self.ud setObject:@(LogoFiveSpeed) forKey:kLogoFiveMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoSixSpeed:(NSUInteger)LogoSixSpeed
+- (void)setLogoSixMaxSpeed:(NSUInteger)LogoSixSpeed
 {
-    [self.ud setObject:@(LogoSixSpeed) forKey:kLogoSixSpeed];
+    [self.ud setObject:@(LogoSixSpeed) forKey:kLogoSixMaxSpeed];
     [self.ud synchronize];
 }
 
-- (void)setLogoSevenSpeed:(NSUInteger)LogoSevenSpeed
+- (void)setLogoSevenMaxSpeed:(NSUInteger)LogoSevenSpeed
 {
-    [self.ud setObject:@(LogoSevenSpeed) forKey:kLogoSevenSpeed];
+    [self.ud setObject:@(LogoSevenSpeed) forKey:kLogoSevenMaxSpeed];
+    [self.ud synchronize];
+}
+
+#pragma mark Default Speed
+
+- (void)setLogoOneDefaultSpeed:(NSUInteger)LogoOneSpeed
+{
+    [self.ud setObject:@(LogoOneSpeed) forKey:kLogoOneDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoTwoDefaultSpeed:(NSUInteger)LogoTwoSpeed
+{
+    [self.ud setObject:@(LogoTwoSpeed) forKey:kLogoTwoDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoThreeDefaultSpeed:(NSUInteger)LogoThreeSpeed
+{
+    [self.ud setObject:@(LogoThreeSpeed) forKey:kLogoThreeDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoFourDefaultSpeed:(NSUInteger)LogoFourSpeed
+{
+    [self.ud setObject:@(LogoFourSpeed) forKey:kLogoFourDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoFiveDefaultSpeed:(NSUInteger)LogoFiveSpeed
+{
+    [self.ud setObject:@(LogoFiveSpeed) forKey:kLogoFiveDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoSixDefaultSpeed:(NSUInteger)LogoSixSpeed
+{
+    [self.ud setObject:@(LogoSixSpeed) forKey:kLogoSixDefaultSpeed];
+    [self.ud synchronize];
+}
+
+- (void)setLogoSevenDefaultSpeed:(NSUInteger)LogoSevenSpeed
+{
+    [self.ud setObject:@(LogoSevenSpeed) forKey:kLogoSevenDefaultSpeed];
     [self.ud synchronize];
 }
 
