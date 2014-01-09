@@ -11,6 +11,7 @@
 		29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29603E2B187D745200F562C7 /* InsetsLabel.m */; };
 		706BCFB455AF4476A221DBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10653A32EAB472B9B1AC03B /* libPods.a */; };
 		A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A077A672187D86AE008F97A4 /* TACSettingManager.m */; };
+		A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07ACBFC187E8AD100F8479D /* Images.xcassets */; };
 		D8E25428187AC2D500C0913E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25427187AC2D500C0913E /* Foundation.framework */; };
 		D8E2542A187AC2D500C0913E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25429187AC2D500C0913E /* CoreGraphics.framework */; };
 		D8E2542C187AC2D500C0913E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2542B187AC2D500C0913E /* UIKit.framework */; };
@@ -19,7 +20,6 @@
 		D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E25437187AC2D500C0913E /* TACAppDelegate.m */; };
 		D8E2543B187AC2D500C0913E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8E25439187AC2D500C0913E /* Main.storyboard */; };
 		D8E2543E187AC2D500C0913E /* TACViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E2543D187AC2D500C0913E /* TACViewController.m */; };
-		D8E25440187AC2D500C0913E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8E2543F187AC2D500C0913E /* Images.xcassets */; };
 		D8E25447187AC2D500C0913E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25446187AC2D500C0913E /* XCTest.framework */; };
 		D8E25448187AC2D500C0913E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25427187AC2D500C0913E /* Foundation.framework */; };
 		D8E25449187AC2D500C0913E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2542B187AC2D500C0913E /* UIKit.framework */; };
@@ -45,6 +45,7 @@
 		A01FEA7B187D5CE600B6434F /* CommandExporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandExporter.h; sourceTree = "<group>"; };
 		A077A671187D86AE008F97A4 /* TACSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACSettingManager.h; sourceTree = "<group>"; };
 		A077A672187D86AE008F97A4 /* TACSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACSettingManager.m; sourceTree = "<group>"; };
+		A07ACBFC187E8AD100F8479D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B10653A32EAB472B9B1AC03B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFEB267D0ADF4698BBE6891E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D8E25424187AC2D500C0913E /* PMCExhibitionTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMCExhibitionTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +61,6 @@
 		D8E2543A187AC2D500C0913E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8E2543C187AC2D500C0913E /* TACViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TACViewController.h; sourceTree = "<group>"; };
 		D8E2543D187AC2D500C0913E /* TACViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TACViewController.m; sourceTree = "<group>"; };
-		D8E2543F187AC2D500C0913E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D8E25445187AC2D500C0913E /* PMCExhibitionTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PMCExhibitionTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E25446187AC2D500C0913E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D8E2544E187AC2D500C0913E /* PMCExhibitionTableTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PMCExhibitionTableTests-Info.plist"; sourceTree = "<group>"; };
@@ -137,9 +137,9 @@
 		D8E2542D187AC2D500C0913E /* PMCExhibitionTable */ = {
 			isa = PBXGroup;
 			children = (
-				A07ACBF6187E824200F8479D /* Components */,
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
-				D8E2543F187AC2D500C0913E /* Images.xcassets */,
+				A07ACBF6187E824200F8479D /* Components */,
+				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
 				D8E25439187AC2D500C0913E /* Main.storyboard */,
 				2931D250187D294000752049 /* SettingViewController.h */,
 				2931D251187D294000752049 /* SettingViewController.m */,
@@ -149,7 +149,6 @@
 				A077A672187D86AE008F97A4 /* TACSettingManager.m */,
 				D8E2543C187AC2D500C0913E /* TACViewController.h */,
 				D8E2543D187AC2D500C0913E /* TACViewController.m */,
-				D8E2543F187AC2D500C0913E /* Images.xcassets */,
 				D8E2542E187AC2D500C0913E /* Supporting Files */,
 			);
 			path = PMCExhibitionTable;
@@ -263,7 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E25440187AC2D500C0913E /* Images.xcassets in Resources */,
+				A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */,
 				D8E25432187AC2D500C0913E /* InfoPlist.strings in Resources */,
 				D8E2543B187AC2D500C0913E /* Main.storyboard in Resources */,
 			);
