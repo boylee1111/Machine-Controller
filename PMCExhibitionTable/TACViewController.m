@@ -49,6 +49,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Button Action
+
 #pragma mark - GCDAsyncSocket Delegate
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host

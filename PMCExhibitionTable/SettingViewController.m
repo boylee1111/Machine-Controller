@@ -284,7 +284,7 @@
     //Maximum Speed Setting
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
-        labelRect = CGRectMake(x, y + i * difference, width, height);
+        labelRect = CGRectMake(x, y + (i - 1) * difference, width, height);
         
         label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
         
@@ -297,7 +297,7 @@
         label.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
         
-        upButtonRect = CGRectMake(x + width- 25, y + 5 + i* difference, 20, 20);
+        upButtonRect = CGRectMake(x + width- 25, y + 5 + (i - 1) * difference, 20, 20);
         upButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [upButton setFrame:upButtonRect];
         [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
@@ -308,7 +308,7 @@
            forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:upButton];
         
-        downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
+        downButtonRect = CGRectMake(x + width- 25, y + 30 + (i - 1) * difference, 20, 20);
         downButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [downButton setFrame:downButtonRect];
         [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
@@ -322,9 +322,9 @@
     
     //Default Speed Settings
     x = 792;
-    for (NSInteger i = 1; i < MOTOR_COUNT; i++) {
+    for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
-        labelRect = CGRectMake(x, y + i * difference, width, height);
+        labelRect = CGRectMake(x, y + (i - 1) * difference, width, height);
         
         font = [UIFont boldSystemFontOfSize:28.0f];
         
@@ -339,7 +339,7 @@
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
         
-        upButtonRect = CGRectMake(x + width- 25, y + 5 + i* difference, 20, 20);
+        upButtonRect = CGRectMake(x + width- 25, y + 5 + (i - 1) * difference, 20, 20);
         upButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [upButton setFrame:upButtonRect];
         [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
@@ -350,7 +350,7 @@
            forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:upButton];
         
-        downButtonRect = CGRectMake(x + width- 25, y + 30 + i* difference, 20, 20);
+        downButtonRect = CGRectMake(x + width- 25, y + 30 + (i - 1) * difference, 20, 20);
         downButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [downButton setFrame:downButtonRect];
         [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
