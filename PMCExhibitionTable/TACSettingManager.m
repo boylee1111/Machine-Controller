@@ -8,9 +8,31 @@
 
 #import "TACSettingManager.h"
 
+#define kDemoModeTime @"demonModeTime"
+#define kHeight @"height"
+#define kLogoOneSpeed @"LogoOneSpeed"
+#define kLogoTwoSpeed @"LogoTwoSpeed"
+#define kLogoThreeSpeed @"LogoThreeSpeed"
+#define kLogoFourSpeed @"LogoFourSpeed"
+#define kLogoFiveSpeed @"LogoFiveSpeed"
+#define kLogoSixSpeed @"LogoSixSpeed"
+#define kLogoSevenSpeed @"LogoSevenSpeed"
+
+#define DEFAULT_DEMO_MODE_TIME 120
+#define DEFAULT_HEIGHT 170
+#define DEFAULT_SPEED 500
+
 @interface TACSettingManager ()
 
 @property (nonatomic, weak) NSUserDefaults *ud;
+
+@property (nonatomic) NSUInteger LogoOneSpeed;
+@property (nonatomic) NSUInteger LogoTwoSpeed;
+@property (nonatomic) NSUInteger LogoThreeSpeed;
+@property (nonatomic) NSUInteger LogoFourSpeed;
+@property (nonatomic) NSUInteger LogoFiveSpeed;
+@property (nonatomic) NSUInteger LogoSixSpeed;
+@property (nonatomic) NSUInteger LogoSevenSpeed;
 
 @end
 
@@ -30,8 +52,57 @@
 {
     if (self = [super init]) {
         self.ud = [NSUserDefaults standardUserDefaults];
+
+        self.DemoModeTime == 0 ? self.DemoModeTime = DEFAULT_DEMO_MODE_TIME : self.DemoModeTime;
+        self.Height == 0 ? self.Height = DEFAULT_HEIGHT : self.Height;
+        self.LogoOneSpeed   == 0 ? self.LogoOneSpeed   = DEFAULT_SPEED : self.LogoOneSpeed;
+        self.LogoTwoSpeed   == 0 ? self.LogoTwoSpeed   = DEFAULT_SPEED : self.LogoTwoSpeed;
+        self.LogoThreeSpeed == 0 ? self.LogoThreeSpeed = DEFAULT_SPEED : self.LogoThreeSpeed;
+        self.LogoFourSpeed  == 0 ? self.LogoFourSpeed  = DEFAULT_SPEED : self.LogoFourSpeed;
+        self.LogoFiveSpeed  == 0 ? self.LogoFiveSpeed  = DEFAULT_SPEED : self.LogoFiveSpeed;
+        self.LogoSixSpeed   == 0 ? self.LogoSixSpeed   = DEFAULT_SPEED : self.LogoSixSpeed;
+        self.LogoSevenSpeed == 0 ? self.LogoSevenSpeed = DEFAULT_SPEED : self.LogoSevenSpeed;
     }
     return self;
+}
+
+- (NSUInteger)speedOfMotor:(NSUInteger)number
+{
+    if (number == 1) return self.LogoOneSpeed;
+    if (number == 2) return self.LogoTwoSpeed;
+    if (number == 3) return self.LogoThreeSpeed;
+    if (number == 4) return self.LogoFourSpeed;
+    if (number == 5) return self.LogoFiveSpeed;
+    if (number == 6) return self.LogoSixSpeed;
+    if (number == 7) return self.LogoSevenSpeed;
+    
+    return DEFAULT_SPEED;
+}
+
+- (CGFloat)speedOfMotorWithPercent:(NSUInteger)number
+{
+    NSUInteger speed = DEFAULT_SPEED;
+    
+    if (number == 1) speed = self.LogoOneSpeed;
+    if (number == 2) speed = self.LogoTwoSpeed;
+    if (number == 3) speed = self.LogoThreeSpeed;
+    if (number == 4) speed = self.LogoFourSpeed;
+    if (number == 5) speed = self.LogoFiveSpeed;
+    if (number == 6) speed = self.LogoSixSpeed;
+    if (number == 7) speed = self.LogoSevenSpeed;
+    
+    return DEFAULT_SPEED / MAX_SPEED;
+}
+
+- (void)setSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed
+{
+    if (number == 1) self.LogoOneSpeed = speed;
+    if (number == 2) self.LogoTwoSpeed = speed;
+    if (number == 3) self.LogoThreeSpeed = speed;
+    if (number == 4) self.LogoFourSpeed = speed;
+    if (number == 5) self.LogoFiveSpeed = speed;
+    if (number == 6) self.LogoSixSpeed = speed;
+    if (number == 7) self.LogoSevenSpeed = speed;
 }
 
 #pragma mark - Getter

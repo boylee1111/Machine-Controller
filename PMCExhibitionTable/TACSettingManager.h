@@ -10,29 +10,15 @@
 
 @interface TACSettingManager : NSObject
 
-#define MAX_SPEED 1500
-
-#define kDemoModeTime @"demonModeTime"
-#define kHeight @"height"
-#define kLogoOneSpeed @"LogoOneSpeed"
-#define kLogoTwoSpeed @"LogoTwoSpeed"
-#define kLogoThreeSpeed @"LogoThreeSpeed"
-#define kLogoFourSpeed @"LogoFourSpeed"
-#define kLogoFiveSpeed @"LogoFiveSpeed"
-#define kLogoSixSpeed @"LogoSixSpeed"
-#define kLogoSevenSpeed @"LogoSevenSpeed"
+#define MAX_SPEED 1500.0
 
 @property (nonatomic) NSUInteger DemoModeTime;
 @property (nonatomic) NSUInteger Height;
 
-@property (nonatomic) NSUInteger LogoOneSpeed;
-@property (nonatomic) NSUInteger LogoTwoSpeed;
-@property (nonatomic) NSUInteger LogoThreeSpeed;
-@property (nonatomic) NSUInteger LogoFourSpeed;
-@property (nonatomic) NSUInteger LogoFiveSpeed;
-@property (nonatomic) NSUInteger LogoSixSpeed;
-@property (nonatomic) NSUInteger LogoSevenSpeed;
-
 + (TACSettingManager *)sharedManager;
+
+- (NSUInteger)speedOfMotor:(NSUInteger)number;
+- (CGFloat)speedOfMotorWithPercent:(NSUInteger)number;
+- (void)setSpeedforMotor:(NSUInteger)number withSpeed:(NSUInteger)speed;
 
 @end
