@@ -14,6 +14,8 @@
 #define LOCAL_IP_ADDRESS @"127.0.0.1"
 #define PORT 4000
 
+#define BASE_TAG_FOR_LOGO_BUTTON 300
+
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
 }
@@ -26,6 +28,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    for (int i = 1; i <= MOTOR_COUNT; ++i) {
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToPopTheSlider:)];
+        longPress.minimumPressDuration = 2;
+        UIButton *logoButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+        [logoButton addGestureRecognizer:longPress];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,6 +59,18 @@
 }
 
 #pragma mark - Button Action
+
+- (IBAction)logoSelectOrDeselect:(UIButton *)sender {
+    sender.selected ^= 0x1;
+}
+
+#pragma mark - Selectors
+
+- (void)longPressToPopTheSlider:(UILongPressGestureRecognizer *)sender
+{
+    UIButton *logo = (UIButton *)sender.view;
+    NSLog(@"logo tag = %d", logo.tag);
+}
 
 #pragma mark - GCDAsyncSocket Delegate
 

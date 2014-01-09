@@ -10,6 +10,8 @@
 
 @interface TACSettingManager : NSObject
 
+#define MOTOR_COUNT 7
+
 #define MAX_SPEED 1500.0
 #define LIMIT_SPEED 10.0
 #define MIN_SPEED_FOR_MAX_SPEED 100.0

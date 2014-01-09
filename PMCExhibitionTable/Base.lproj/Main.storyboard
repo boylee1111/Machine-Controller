@@ -27,6 +27,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="windjamerButton_selected"/>
+                                <state key="highlighted" backgroundImage="windjamerButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TbI-5B-FPY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="307" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8a-8G-mVS">
                                 <rect key="frame" x="536" y="248" width="363" height="163"/>
@@ -35,6 +39,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="nautilairButton_selected"/>
+                                <state key="highlighted" backgroundImage="nautilairButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1IB-DB-uDJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="302" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-z6-K5e">
                                 <rect key="frame" x="0.0" y="413" width="342" height="151"/>
@@ -43,14 +51,23 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="dunkermotoren_selected"/>
+                                <state key="highlighted" backgroundImage="dunkermotoren_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WEh-B3-5m9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="301" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7v-cr-ndH">
                                 <rect key="frame" x="350" y="431" width="331" height="144"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                                 <state key="normal" backgroundImage="ametekButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="ametekButton_selected"/>
+                                <state key="highlighted" backgroundImage="ametekButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qjl-Tu-Bg8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="305" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOG-T0-9oE">
                                 <rect key="frame" x="689" y="408" width="335" height="149"/>
@@ -59,6 +76,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="rotronButton_selected"/>
+                                <state key="highlighted" backgroundImage="rotronButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Azm-m4-cVL"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="303" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAs-74-qI7">
                                 <rect key="frame" x="110" y="583" width="348" height="152"/>
@@ -67,6 +88,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="pittmanButton_selected"/>
+                                <state key="highlighted" backgroundImage="pittmanButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mdR-MM-KaG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="304" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0g-46-x1N">
                                 <rect key="frame" x="536" y="583" width="365" height="146"/>
@@ -75,6 +100,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="haydonherkButton_selected"/>
+                                <state key="highlighted" backgroundImage="haydonherkButton_selected"/>
+                                <connections>
+                                    <action selector="logoSelectOrDeselect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xt0-lL-Tef"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzB-Qa-B17">
                                 <rect key="frame" x="903" y="691" width="62" height="63"/>
