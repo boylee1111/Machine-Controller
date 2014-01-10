@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GCDAsyncSocket.h"
 #import "TACInfoViewController.h"
-@interface TACViewController : UIViewController <GCDAsyncSocketDelegate>
+@interface TACViewController : UIViewController
 
 @end
