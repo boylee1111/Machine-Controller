@@ -22,6 +22,8 @@
 #define HUMAN_HEIGHT_X 838
 #define HUMAN_HEIGHT_Y 215
 #define HUMAN_WIDTH 113
+
+#define HUMAN_HEIGHT_LABEL_HEIGHT 30
 // These tags are used to mark data stream when writing data to server
 #define SET_HEIGHT_TAG 1000
 #define START_ALL_TAG 1100
@@ -76,6 +78,13 @@
     
     [self.view addSubview:humanImageView];
     
+    UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
+    UILabel *humanHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, HUMAN_HEIGHT_LABEL_HEIGHT)];
+    humanHeightLabel.font = font;
+    humanHeightLabel.text = [NSString stringWithFormat:@"%dcm", [TACSettingManager sharedManager].Height];
+    humanHeightLabel.tag = BASE_TAG_FOR_HUMAN_HEIGHT + 1;
+    [self.view addSubview:humanHeightLabel];
+    
     
     NSError *err = nil;
     if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
@@ -92,6 +101,12 @@
     UIImageView *humanImage = (UIImageView*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
     CGFloat rectHeight = [TACSettingManager sharedManager].Height * HUMAN_HEIGHT_IMAGE_HEIGHT_RATE;
     humanImage.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, rectHeight);
+    
+    UILabel *humanLabel = (UILabel*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT+1];
+    CGRect rect = humanLabel.frame;
+    humanLabel.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, rect.size.width, rect.size.height);
+    humanLabel.text = [NSString stringWithFormat:@"%dcm", [TACSettingManager sharedManager].Height];
+
 }
 
 - (void)didReceiveMemoryWarning
