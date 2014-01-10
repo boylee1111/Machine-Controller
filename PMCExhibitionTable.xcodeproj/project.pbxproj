@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29259BCE187FC35600721894 /* TACHumanImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29259BCD187FC35600721894 /* TACHumanImageView.m */; };
 		2931D252187D294000752049 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2931D251187D294000752049 /* SettingViewController.m */; };
 		29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29603E2B187D745200F562C7 /* InsetsLabel.m */; };
 		706BCFB455AF4476A221DBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10653A32EAB472B9B1AC03B /* libPods.a */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29259BCC187FC35600721894 /* TACHumanImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACHumanImageView.h; sourceTree = "<group>"; };
+		29259BCD187FC35600721894 /* TACHumanImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACHumanImageView.m; sourceTree = "<group>"; };
 		2931D250187D294000752049 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		2931D251187D294000752049 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		29603E2A187D745200F562C7 /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InsetsLabel.h; path = ../InsetsLabel.h; sourceTree = "<group>"; };
@@ -98,6 +101,8 @@
 			children = (
 				29603E2A187D745200F562C7 /* InsetsLabel.h */,
 				29603E2B187D745200F562C7 /* InsetsLabel.m */,
+				29259BCC187FC35600721894 /* TACHumanImageView.h */,
+				29259BCD187FC35600721894 /* TACHumanImageView.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */,
 				D8E25434187AC2D500C0913E /* main.m in Sources */,
 				D8E2543E187AC2D500C0913E /* TACViewController.m in Sources */,
+				29259BCE187FC35600721894 /* TACHumanImageView.m in Sources */,
 				D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */,
 				2931D252187D294000752049 /* SettingViewController.m in Sources */,
 			);

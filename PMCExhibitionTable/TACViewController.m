@@ -9,12 +9,19 @@
 #import "TACViewController.h"
 #import "CommandExporter.h"
 #import "TACSettingManager.h"
+#import "TACHumanImageView.h"
 
 #define HOST_IP_ADDRESS @"192.168.1.105"
 #define LOCAL_IP_ADDRESS @"127.0.0.1"
 #define PORT 4000
 
 #define BASE_TAG_FOR_LOGO_BUTTON 300
+#define BASE_TAG_FOR_HUMAN_HEIGHT 400
+
+#define HUMAN_HEIGHT_IMAGE_HEIGHT_RATE (160.0f / 180.0f)
+#define HUMAN_HEIGHT_X 838
+#define HUMAN_HEIGHT_Y 215
+#define HUMAN_WIDTH 113
 
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
@@ -35,6 +42,23 @@
         UIButton *logoButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
         [logoButton addGestureRecognizer:longPress];
     }
+    
+    [self refreshHumanHeight];
+    [TACSettingManager sharedManager].Height = 200;
+    
+    UIImage *humanImage = [UIImage imageNamed:@"human"];
+    UIImageView *humanImageView = [[UIImageView alloc] initWithImage:humanImage];
+    CGFloat rectHeight = [TACSettingManager sharedManager].Height * HUMAN_HEIGHT_IMAGE_HEIGHT_RATE;
+    humanImageView.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, rectHeight);
+    humanImageView.tag = BASE_TAG_FOR_HUMAN_HEIGHT;
+    
+    UIPanGestureRecognizer *dragView = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragToHumanHeight:)];
+    [humanImageView setUserInteractionEnabled:YES];
+    [humanImageView addGestureRecognizer:dragView];
+    
+    [self.view addSubview:humanImageView];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,6 +74,13 @@
         NSLog(@"connect error %@", err);
     }
     /* -------------------------------------- */
+    
+}
+
+- (void)refreshHumanHeight{
+    UIImageView *humanImage = (UIImageView*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
+    CGFloat rectHeight = [TACSettingManager sharedManager].Height * HUMAN_HEIGHT_IMAGE_HEIGHT_RATE;
+    humanImage.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, rectHeight);
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,6 +101,23 @@
 {
     UIButton *logo = (UIButton *)sender.view;
     NSLog(@"logo tag = %d", logo.tag);
+}
+
+-(void) dragToHumanHeight:(UIPanGestureRecognizer *)sender {
+    UIImageView *view = (UIImageView *)[self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
+//    CGPoint vector = [sender translationInView:view.nil];
+    CGPoint vector = [sender velocityInView:nil];
+    if (vector.x > 0) {
+        [TACSettingManager sharedManager].Height -= 1;
+    } else if (vector.x < 0) {
+        [TACSettingManager sharedManager].Height
+        += 1;    }
+    if ([TACSettingManager sharedManager].Height < 120) {
+        [TACSettingManager sharedManager].Height
+        = 120;    } else if ([TACSettingManager sharedManager].Height > 200) {
+            [TACSettingManager sharedManager].Height = 200;
+        }
+    [self refreshHumanHeight];
 }
 
 #pragma mark - GCDAsyncSocket Delegate
