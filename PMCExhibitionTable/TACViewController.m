@@ -7,23 +7,20 @@
 //
 
 #import "TACViewController.h"
+#import "TACAppDelegate.h"
+#import "GCDAsyncSocket.h"
 #import "CommandExporter.h"
 #import "TACSettingManager.h"
 
-#define HOST_IP_ADDRESS @"192.168.1.105"
-#define LOCAL_IP_ADDRESS @"127.0.0.1"
-#define PORT 4000
-
 #define BASE_TAG_FOR_LOGO_BUTTON 300
+#define BASE_TAG_FOR_HUMAN_HEIGHT 400
 
-// These tags are used to mark data stream when writing data to server
-#define SET_HEIGHT_TAG 1000
-#define START_ALL_TAG 1100
-#define STOP_ALL_TAG 1200
-#define START_MOTOR_TAG(num) 1300 + num
-#define ROTATE_MOTOR_CLOCKWISE_TAG(num) 1400 + num
-#define ROTATE_MOTOR_COUNTERCLOCKWISE_TAG(num) 1500 + num
-#define SET_FREQUENCY_FOR_MOTOR_TAG(num) 1600 + num
+#define HUMAN_HEIGHT_IMAGE_HEIGHT_RATE (160.0f / 180.0f)
+#define HUMAN_HEIGHT_X 838
+#define HUMAN_HEIGHT_Y 215
+#define HUMAN_WIDTH 113
+
+#define HUMAN_HEIGHT_LABEL_HEIGHT 30
 
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
@@ -46,6 +43,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    TACAppDelegate *appDelegate = (TACAppDelegate *)[[UIApplication sharedApplication] delegate];
+    asyncSocket = appDelegate.asyncSocket;
+    
     [self.frequencySlider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     [self hideTheSlider];
     
@@ -57,25 +57,46 @@
         [logoButton addGestureRecognizer:longPress];
     }
     
-    UILongPressGestureRecognizer *startLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                 action:@selector(longPressStartButtonToStartAll:)];
-    startLongPress.minimumPressDuration = 2;
-    [self.startButton addGestureRecognizer:startLongPress];
+    
+    UIImage *humanImage = [UIImage imageNamed:@"human"];
+    UIImageView *humanImageView = [[UIImageView alloc] initWithImage:humanImage];
+    CGFloat rectHeight = [TACSettingManager sharedManager].Height * HUMAN_HEIGHT_IMAGE_HEIGHT_RATE;
+    humanImageView.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, rectHeight);
+    humanImageView.tag = BASE_TAG_FOR_HUMAN_HEIGHT;
+    
+    UIPanGestureRecognizer *dragView = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragToHumanHeight:)];
+    [humanImageView setUserInteractionEnabled:YES];
+    [humanImageView addGestureRecognizer:dragView];
+    
+    [self.view addSubview:humanImageView];
+    
+    UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
+    UILabel *humanHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, HUMAN_HEIGHT_LABEL_HEIGHT)];
+    humanHeightLabel.font = font;
+    humanHeightLabel.text = [NSString stringWithFormat:@"%ldcm", [TACSettingManager sharedManager].Height];
+    humanHeightLabel.tag = BASE_TAG_FOR_HUMAN_HEIGHT + 1;
+    [self.view addSubview:humanHeightLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self
-                                             delegateQueue:dispatch_get_main_queue()];
-    NSError *err = nil;
-    if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
-                             onPort:PORT
-                        withTimeout:5
-                              error:&err]) {
-        NSLog(@"connect error %@", err);
-    }
+    [self refreshHumanHeight];
+
+    [self writeSettingParameter];
+}
+
+- (void)refreshHumanHeight{
+    UIImageView *humanImage = (UIImageView*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
+    CGFloat rectHeight = [TACSettingManager sharedManager].Height * HUMAN_HEIGHT_IMAGE_HEIGHT_RATE;
+    humanImage.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, rectHeight);
+    
+    UILabel *humanLabel = (UILabel*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT+1];
+    CGRect rect = humanLabel.frame;
+    humanLabel.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, rect.size.width, rect.size.height);
+    humanLabel.text = [NSString stringWithFormat:@"%ldcm", [TACSettingManager sharedManager].Height];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -199,18 +220,21 @@
     }
 }
 
-#pragma mark - GCDAsyncSocket Delegate
-
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host
-          port:(uint16_t)port {
-    NSLog(@"Connecting successfully. Setting initialize");
-    
-    [self writeSettingParameter];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"Wirting data tag = %ld", tag);
+-(void) dragToHumanHeight:(UIPanGestureRecognizer *)sender {
+    UIImageView *view = (UIImageView *)[self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
+//    CGPoint vector = [sender translationInView:view.nil];
+    CGPoint vector = [sender velocityInView:nil];
+    if (vector.x > 0) {
+        [TACSettingManager sharedManager].Height -= 1;
+    } else if (vector.x < 0) {
+        [TACSettingManager sharedManager].Height
+        += 1;    }
+    if ([TACSettingManager sharedManager].Height < 120) {
+        [TACSettingManager sharedManager].Height
+        = 120;    } else if ([TACSettingManager sharedManager].Height > 200) {
+            [TACSettingManager sharedManager].Height = 200;
+        }
+    [self refreshHumanHeight];
 }
 
 #pragma mark - Helper Methods

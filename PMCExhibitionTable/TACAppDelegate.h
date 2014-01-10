@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GCDAsyncSocket.h"
 
-@interface TACAppDelegate : UIResponder <UIApplicationDelegate>
+@interface TACAppDelegate : UIResponder <UIApplicationDelegate, GCDAsyncSocketDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) GCDAsyncSocket *asyncSocket;
 
 @end

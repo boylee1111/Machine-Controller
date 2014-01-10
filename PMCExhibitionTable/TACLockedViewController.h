@@ -11,5 +11,4 @@
 
 @interface TACLockedViewController : UIViewController<MBSliderViewDelegate>
 
-
 @end

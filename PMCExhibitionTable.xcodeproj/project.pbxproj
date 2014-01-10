@@ -12,7 +12,7 @@
 		706BCFB455AF4476A221DBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10653A32EAB472B9B1AC03B /* libPods.a */; };
 		A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A077A672187D86AE008F97A4 /* TACSettingManager.m */; };
 		A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07ACBFC187E8AD100F8479D /* Images.xcassets */; };
-		D81D8B55187FD5A800D9FBC1 /* MBSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D81D8B54187FD5A800D9FBC1 /* MBSliderView.m */; };
+		A0DFDEDF188013BF00735A96 /* MBSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DFDEDD188013BF00735A96 /* MBSliderView.m */; };
 		D81D8B58187FD63200D9FBC1 /* TACLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */; };
 		D81D8B5C187FF38900D9FBC1 /* TACInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81D8B5A187FF38900D9FBC1 /* TACInfoViewController.m */; };
 		D81D8B5D187FF38900D9FBC1 /* TACInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81D8B5B187FF38900D9FBC1 /* TACInfoViewController.xib */; };
@@ -50,10 +50,10 @@
 		A077A671187D86AE008F97A4 /* TACSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACSettingManager.h; sourceTree = "<group>"; };
 		A077A672187D86AE008F97A4 /* TACSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACSettingManager.m; sourceTree = "<group>"; };
 		A07ACBFC187E8AD100F8479D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A0DFDEDD188013BF00735A96 /* MBSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSliderView.m; sourceTree = "<group>"; };
+		A0DFDEDE188013BF00735A96 /* MBSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSliderView.h; sourceTree = "<group>"; };
 		B10653A32EAB472B9B1AC03B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFEB267D0ADF4698BBE6891E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		D81D8B53187FD5A800D9FBC1 /* MBSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSliderView.h; sourceTree = "<group>"; };
-		D81D8B54187FD5A800D9FBC1 /* MBSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSliderView.m; sourceTree = "<group>"; };
 		D81D8B56187FD63200D9FBC1 /* TACLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACLockedViewController.h; sourceTree = "<group>"; };
 		D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACLockedViewController.m; sourceTree = "<group>"; };
 		D81D8B59187FF38900D9FBC1 /* TACInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACInfoViewController.h; sourceTree = "<group>"; };
@@ -152,13 +152,16 @@
 			children = (
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
 				A07ACBF6187E824200F8479D /* Components */,
+				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
 				D8E25439187AC2D500C0913E /* Main.storyboard */,
+				A0DFDEDE188013BF00735A96 /* MBSliderView.h */,
+				A0DFDEDD188013BF00735A96 /* MBSliderView.m */,
 				2931D250187D294000752049 /* SettingViewController.h */,
 				2931D251187D294000752049 /* SettingViewController.m */,
-				D81D8B56187FD63200D9FBC1 /* TACLockedViewController.h */,
-				D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */,
 				D8E25436187AC2D500C0913E /* TACAppDelegate.h */,
 				D8E25437187AC2D500C0913E /* TACAppDelegate.m */,
+				D81D8B56187FD63200D9FBC1 /* TACLockedViewController.h */,
+				D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */,
 				A077A671187D86AE008F97A4 /* TACSettingManager.h */,
 				A077A672187D86AE008F97A4 /* TACSettingManager.m */,
 				D8E2543C187AC2D500C0913E /* TACViewController.h */,
@@ -340,6 +343,7 @@
 				D8E25434187AC2D500C0913E /* main.m in Sources */,
 				D8E2543E187AC2D500C0913E /* TACViewController.m in Sources */,
 				D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */,
+				A0DFDEDF188013BF00735A96 /* MBSliderView.m in Sources */,
 				D81D8B58187FD63200D9FBC1 /* TACLockedViewController.m in Sources */,
 				D81D8B55187FD5A800D9FBC1 /* MBSliderView.m in Sources */,
 				D81D8B5C187FF38900D9FBC1 /* TACInfoViewController.m in Sources */,
