@@ -14,6 +14,8 @@
 		A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07ACBFC187E8AD100F8479D /* Images.xcassets */; };
 		A0DFDEDF188013BF00735A96 /* MBSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DFDEDD188013BF00735A96 /* MBSliderView.m */; };
 		D81D8B58187FD63200D9FBC1 /* TACLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */; };
+		D81D8B5C187FF38900D9FBC1 /* TACInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81D8B5A187FF38900D9FBC1 /* TACInfoViewController.m */; };
+		D81D8B5D187FF38900D9FBC1 /* TACInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81D8B5B187FF38900D9FBC1 /* TACInfoViewController.xib */; };
 		D8E25428187AC2D500C0913E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25427187AC2D500C0913E /* Foundation.framework */; };
 		D8E2542A187AC2D500C0913E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E25429187AC2D500C0913E /* CoreGraphics.framework */; };
 		D8E2542C187AC2D500C0913E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E2542B187AC2D500C0913E /* UIKit.framework */; };
@@ -54,6 +56,9 @@
 		CFEB267D0ADF4698BBE6891E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D81D8B56187FD63200D9FBC1 /* TACLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACLockedViewController.h; sourceTree = "<group>"; };
 		D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACLockedViewController.m; sourceTree = "<group>"; };
+		D81D8B59187FF38900D9FBC1 /* TACInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACInfoViewController.h; sourceTree = "<group>"; };
+		D81D8B5A187FF38900D9FBC1 /* TACInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACInfoViewController.m; sourceTree = "<group>"; };
+		D81D8B5B187FF38900D9FBC1 /* TACInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TACInfoViewController.xib; sourceTree = "<group>"; };
 		D8E25424187AC2D500C0913E /* PMCExhibitionTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMCExhibitionTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E25427187AC2D500C0913E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8E25429187AC2D500C0913E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -161,6 +166,10 @@
 				A077A672187D86AE008F97A4 /* TACSettingManager.m */,
 				D8E2543C187AC2D500C0913E /* TACViewController.h */,
 				D8E2543D187AC2D500C0913E /* TACViewController.m */,
+				D81D8B59187FF38900D9FBC1 /* TACInfoViewController.h */,
+				D81D8B5A187FF38900D9FBC1 /* TACInfoViewController.m */,
+				D81D8B5B187FF38900D9FBC1 /* TACInfoViewController.xib */,
+				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
 				D8E2542E187AC2D500C0913E /* Supporting Files */,
 			);
 			path = PMCExhibitionTable;
@@ -275,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */,
+				D81D8B5D187FF38900D9FBC1 /* TACInfoViewController.xib in Resources */,
 				D8E25432187AC2D500C0913E /* InfoPlist.strings in Resources */,
 				D8E2543B187AC2D500C0913E /* Main.storyboard in Resources */,
 			);
@@ -335,6 +345,8 @@
 				D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */,
 				A0DFDEDF188013BF00735A96 /* MBSliderView.m in Sources */,
 				D81D8B58187FD63200D9FBC1 /* TACLockedViewController.m in Sources */,
+				D81D8B55187FD5A800D9FBC1 /* MBSliderView.m in Sources */,
+				D81D8B5C187FF38900D9FBC1 /* TACInfoViewController.m in Sources */,
 				2931D252187D294000752049 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

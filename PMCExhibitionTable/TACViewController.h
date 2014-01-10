@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TACInfoViewController.h"
 @interface TACViewController : UIViewController
 
 @end
