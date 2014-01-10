@@ -277,4 +277,27 @@
     
 }
 
+- (IBAction)settingButtonPressed:(id)sender {
+    UIAlertView *passwordAlert = [[UIAlertView alloc]initWithTitle:@"Password" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"ok", nil];
+    [passwordAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+    [passwordAlert show];
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        UITextField *passwordTextField=[alertView textFieldAtIndex:0];
+        NSString *password = passwordTextField.text;
+        if([password compare:@"1234"]){
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Password is not right!" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else{
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            SettingViewController *settingViewController = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+            [self presentViewController:settingViewController animated:YES completion:nil];
+
+        }
+        
+    }
+}
+
 @end
