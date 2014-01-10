@@ -24,7 +24,10 @@
 
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
-    
+    NSTimer *backTimer;
+    NSInteger *unTouchedTime;
+    NSSet *touchSet;
+    NSSet *lastTouchSet;
     NSUInteger currentModifyMotorNumber; // 记录当前slider更改哪个motor数值
 }
 
@@ -86,6 +89,23 @@
 
     [self writeSettingParameter];
 }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    unTouchedTime = 0;
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                 target:self
+                                               selector:@selector(checkWhetherTouched)
+                                               userInfo:nil
+                                                repeats:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [backTimer invalidate];
+}
+
 
 - (void)refreshHumanHeight{
     UIImageView *humanImage = (UIImageView*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
@@ -237,6 +257,46 @@
     [self refreshHumanHeight];
 }
 
+#pragma mark - Back Timer
+-(void)checkWhetherTouched{
+    
+    if ([touchSet isEqualToSet:lastTouchSet]) {
+        unTouchedTime++;
+    }
+    else if(touchSet==NULL&&lastTouchSet==NULL){
+        unTouchedTime++;
+    }
+    else{
+        unTouchedTime = 0;
+        [self resetTimer];
+    }
+    if ((int)unTouchedTime == 4*[TACSettingManager sharedManager].DemoModeTime) {
+        [self demoViaTiming];
+    }
+    lastTouchSet = touchSet;
+    NSLog(@"%d",(int)unTouchedTime/4);
+    
+    
+}
+- (void)resetTimer
+{
+    [backTimer invalidate];
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                 target:self
+                                               selector:@selector(checkWhetherTouched)
+                                               userInfo:nil
+                                                repeats:YES];
+}
+
+- (void)demoViaTiming
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController *settingViewController = [storyboard instantiateViewControllerWithIdentifier:@"TACLockedViewController"];
+    [self presentViewController:settingViewController animated:YES completion:nil];
+    
+}
+
+
 #pragma mark - Helper Methods
 
 - (void)writeSettingParameter
@@ -298,6 +358,9 @@
         }
         
     }
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    touchSet = touches;
 }
 
 @end

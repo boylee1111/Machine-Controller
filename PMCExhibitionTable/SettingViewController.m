@@ -63,7 +63,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    unTouchedTime = 0;
+    
     
     [self addSettingLabelsAndButtons];
     
@@ -82,7 +82,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    unTouchedTime = 0;
     backTimer = [NSTimer scheduledTimerWithTimeInterval:1
                                                  target:self
                                                selector:@selector(checkWhetherTouched)

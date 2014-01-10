@@ -204,7 +204,7 @@
         <!--Locked View Controller-->
         <scene sceneID="E8g-ok-7PN">
             <objects>
-                <viewController id="A0B-2z-vPf" customClass="TACLockedViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TACLockedViewController" id="A0B-2z-vPf" customClass="TACLockedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UHe-IW-rgO"/>
                         <viewControllerLayoutGuide type="bottom" id="1Ic-Xu-oBn"/>
