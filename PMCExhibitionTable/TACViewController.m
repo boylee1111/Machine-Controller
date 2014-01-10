@@ -9,7 +9,6 @@
 #import "TACViewController.h"
 #import "CommandExporter.h"
 #import "TACSettingManager.h"
-#import "TACHumanImageView.h"
 
 #define HOST_IP_ADDRESS @"192.168.1.105"
 #define LOCAL_IP_ADDRESS @"127.0.0.1"
@@ -115,6 +114,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshHumanHeight];
+}
 #pragma mark - Button Action
 
 - (IBAction)startButtonClicked:(id)sender {
