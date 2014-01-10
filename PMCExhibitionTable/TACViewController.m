@@ -87,6 +87,7 @@
                               error:&err]) {
         NSLog(@"connect error %@", err);
     }
+    [self refreshHumanHeight];
 }
 
 - (void)refreshHumanHeight{
@@ -107,10 +108,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self refreshHumanHeight];
-}
 #pragma mark - Button Action
 
 - (IBAction)startButtonClicked:(id)sender {
