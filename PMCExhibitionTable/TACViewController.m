@@ -22,7 +22,6 @@
 #define HUMAN_HEIGHT_X 838
 #define HUMAN_HEIGHT_Y 215
 #define HUMAN_WIDTH 113
-
 // These tags are used to mark data stream when writing data to server
 #define SET_HEIGHT_TAG 1000
 #define START_ALL_TAG 1100
@@ -64,8 +63,6 @@
         [logoButton addGestureRecognizer:longPress];
     }
     
-    [self refreshHumanHeight];
-    [TACSettingManager sharedManager].Height = 200;
     
     UIImage *humanImage = [UIImage imageNamed:@"human"];
     UIImageView *humanImageView = [[UIImageView alloc] initWithImage:humanImage];
@@ -80,14 +77,6 @@
     [self.view addSubview:humanImageView];
     
     
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self
-                                             delegateQueue:dispatch_get_main_queue()];
     NSError *err = nil;
     if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
                              onPort:PORT
