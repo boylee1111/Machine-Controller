@@ -10,10 +10,6 @@
 #import "CommandExporter.h"
 #import "TACSettingManager.h"
 
-#define HOST_IP_ADDRESS @"192.168.1.105"
-#define LOCAL_IP_ADDRESS @"127.0.0.1"
-#define PORT 4000
-
 #define BASE_TAG_FOR_LOGO_BUTTON 300
 #define BASE_TAG_FOR_HUMAN_HEIGHT 400
 
@@ -23,14 +19,6 @@
 #define HUMAN_WIDTH 113
 
 #define HUMAN_HEIGHT_LABEL_HEIGHT 30
-// These tags are used to mark data stream when writing data to server
-#define SET_HEIGHT_TAG 1000
-#define START_ALL_TAG 1100
-#define STOP_ALL_TAG 1200
-#define START_MOTOR_TAG(num) 1300 + num
-#define ROTATE_MOTOR_CLOCKWISE_TAG(num) 1400 + num
-#define ROTATE_MOTOR_COUNTERCLOCKWISE_TAG(num) 1500 + num
-#define SET_FREQUENCY_FOR_MOTOR_TAG(num) 1600 + num
 
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
@@ -52,6 +40,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+
     
     [self.frequencySlider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     [self hideTheSlider];
@@ -80,10 +71,14 @@
     UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
     UILabel *humanHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, HUMAN_WIDTH, HUMAN_HEIGHT_LABEL_HEIGHT)];
     humanHeightLabel.font = font;
-    humanHeightLabel.text = [NSString stringWithFormat:@"%dcm", [TACSettingManager sharedManager].Height];
+    humanHeightLabel.text = [NSString stringWithFormat:@"%ldcm", [TACSettingManager sharedManager].Height];
     humanHeightLabel.tag = BASE_TAG_FOR_HUMAN_HEIGHT + 1;
     [self.view addSubview:humanHeightLabel];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     NSError *err = nil;
     if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
@@ -92,8 +87,6 @@
                               error:&err]) {
         NSLog(@"connect error %@", err);
     }
-    /* -------------------------------------- */
-    
 }
 
 - (void)refreshHumanHeight{
@@ -104,7 +97,7 @@
     UILabel *humanLabel = (UILabel*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT+1];
     CGRect rect = humanLabel.frame;
     humanLabel.frame = CGRectMake(HUMAN_HEIGHT_X, HUMAN_HEIGHT_Y - rectHeight, rect.size.width, rect.size.height);
-    humanLabel.text = [NSString stringWithFormat:@"%dcm", [TACSettingManager sharedManager].Height];
+    humanLabel.text = [NSString stringWithFormat:@"%ldcm", [TACSettingManager sharedManager].Height];
 
 }
 
