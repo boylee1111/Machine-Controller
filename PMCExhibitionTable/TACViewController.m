@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *frequencySlider;
 @property (weak, nonatomic) IBOutlet UILabel *decoratedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *frequencyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *sliderBackgroundImageView;
 
 @end
 
@@ -45,9 +46,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.frequencySlider.alpha = 0;
-    self.decoratedLabel.alpha = 0;
-    self.frequencyLabel.alpha = 0;
+    [self.frequencySlider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
+    [self hideTheSlider];
     
     for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -101,9 +101,7 @@
     }
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.frequencySlider.alpha = 0;
-        self.decoratedLabel.alpha = 0;
-        self.frequencyLabel.alpha = 0;
+        [self hideTheSlider];
     }];
 }
 
@@ -111,15 +109,17 @@
     [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
                withTimeout:-1
                        tag:STOP_ALL_TAG];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [self hideTheSlider];
+    }];
 }
 
 - (IBAction)logoSelectOrDeselect:(UIButton *)sender {
     sender.selected ^= 0x1;
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.frequencySlider.alpha = 0;
-        self.decoratedLabel.alpha = 0;
-        self.frequencyLabel.alpha = 0;
+        [self hideTheSlider];
     }];
 }
 
@@ -155,28 +155,48 @@
 
 - (void)longPressStartButtonToStartAll:(UILongPressGestureRecognizer *)sender
 {
-    [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
-               withTimeout:-1
-                       tag:START_ALL_TAG];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.frequencySlider.alpha = 0;
-        self.decoratedLabel.alpha = 0;
-        self.frequencyLabel.alpha = 0;
-    }];
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:START_ALL_TAG];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            [self hideTheSlider];
+        }];
+    }
 }
 
 - (void)longPressToPopTheSlider:(UILongPressGestureRecognizer *)sender
 {
-    UIButton *logo = (UIButton *)sender.view;
-    [logo setSelected:YES];
-    currentModifyMotorNumber = logo.tag - BASE_TAG_FOR_LOGO_BUTTON;
-    
-    [UIView animateWithDuration:1 animations:^{
-        self.frequencySlider.alpha = 1;
-        self.decoratedLabel.alpha = 1;
-        self.frequencyLabel.alpha = 1;
-    }];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIButton *logo = (UIButton *)sender.view;
+        [logo setSelected:YES];
+        currentModifyMotorNumber = logo.tag - BASE_TAG_FOR_LOGO_BUTTON;
+        
+        NSUInteger frequencyValue = [[TACSettingManager sharedManager] defaultSpeedOfMotor:currentModifyMotorNumber];
+        CGFloat sliderValue = (CGFloat)frequencyValue / (2 * [[TACSettingManager sharedManager] maxSpeedOfMotor:currentModifyMotorNumber]) + 0.5;
+        
+        
+        if (self.frequencySlider.alpha == 0) {
+            self.frequencyLabel.text = [NSString stringWithFormat:@"%ld", frequencyValue];
+            self.frequencySlider.value = sliderValue;
+            
+            [UIView animateWithDuration:1 animations:^{
+                [self showTheSlider];
+            }];
+        } else {
+            [UIView animateWithDuration:0.5 animations:^{
+                [self hideTheSlider];
+            } completion:^(BOOL finished) {
+                self.frequencyLabel.text = [NSString stringWithFormat:@"%ld", frequencyValue];
+                self.frequencySlider.value = sliderValue;
+                
+                [UIView animateWithDuration:0.5 animations:^{
+                    [self showTheSlider];
+                }];
+            }];
+        }
+    }
 }
 
 #pragma mark - GCDAsyncSocket Delegate
@@ -206,6 +226,22 @@
     [asyncSocket writeData:[ROTATE_MOTOR_CLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
     [asyncSocket writeData:[ROTATE_MOTOR_COUNTERCLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:88];
     [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(num, [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:num]) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+}
+
+- (void)hideTheSlider
+{
+    self.frequencySlider.alpha = 0;
+    self.decoratedLabel.alpha = 0;
+    self.frequencyLabel.alpha = 0;
+    self.sliderBackgroundImageView.alpha = 0;
+}
+
+- (void)showTheSlider
+{
+    self.frequencySlider.alpha = 1;
+    self.decoratedLabel.alpha = 1;
+    self.frequencyLabel.alpha = 1;
+    self.sliderBackgroundImageView.alpha = 1;
 }
 
 @end

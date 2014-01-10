@@ -157,9 +157,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slider_bg" translatesAutoresizingMaskIntoConstraints="NO" id="JFS-Tm-rPC">
+                                <rect key="frame" x="268" y="176" width="516" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BZn-yR-d7y">
                                 <rect key="frame" x="268" y="177" width="516" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="changeSliderValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="rAM-i1-VPm"/>
                                     <action selector="valueChangeEnd:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="hMB-i5-9MM"/>
@@ -181,6 +187,7 @@
                         <outlet property="decoratedLabel" destination="tt8-Mc-gkw" id="99p-Nf-lRd"/>
                         <outlet property="frequencyLabel" destination="I6o-yx-0z0" id="raW-zj-O56"/>
                         <outlet property="frequencySlider" destination="BZn-yR-d7y" id="82m-6p-mLp"/>
+                        <outlet property="sliderBackgroundImageView" destination="JFS-Tm-rPC" id="95R-BN-deH"/>
                         <outlet property="startButton" destination="Kdm-XT-yOP" id="sFc-4d-b5E"/>
                     </connections>
                 </viewController>
@@ -381,6 +388,7 @@ Settings</string>
         <image name="rotronLogo" width="94" height="19"/>
         <image name="sButton" width="19" height="20"/>
         <image name="settingbackground" width="339" height="239"/>
+        <image name="slider_bg" width="258" height="27"/>
         <image name="stopButton" width="29" height="28"/>
         <image name="windjamerButton" width="129" height="51"/>
         <image name="windjamerButton_selected" width="129" height="51"/>
