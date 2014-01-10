@@ -9,10 +9,6 @@
 #ifndef PMCExhibitionTable_CommandExporter_h
 #define PMCExhibitionTable_CommandExporter_h
 
-#define HOST_IP_ADDRESS @"192.168.1.105"
-#define LOCAL_IP_ADDRESS @"127.0.0.1"
-#define PORT 4000
-
 // These tags are used to mark data stream when writing data to server
 #define SET_HEIGHT_TAG 1000
 #define START_ALL_TAG 1100
