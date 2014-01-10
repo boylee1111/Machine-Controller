@@ -33,7 +33,9 @@
 
 @interface SettingViewController () {
     NSTimer *backTimer;
-    
+    NSInteger *unTouchedTime;
+    NSSet *touchSet;
+    NSSet *lastTouchSet;
     BOOL isCounting; // Long pressed or not
     NSUInteger valueChangeRate; // Record rate when long press
 }
@@ -61,6 +63,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    unTouchedTime = 0;
     
     [self addSettingLabelsAndButtons];
     
@@ -80,18 +83,18 @@
 {
     [super viewDidAppear:animated];
     
-//    backTimer = [NSTimer scheduledTimerWithTimeInterval:BACK_TO_MAIN_TIME_INTERVAL
-//                                                 target:self
-//                                               selector:@selector(backViaTiming)
-//                                               userInfo:nil
-//                                                repeats:NO];
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                 target:self
+                                               selector:@selector(checkWhetherTouched)
+                                               userInfo:nil
+                                                repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-//    [backTimer invalidate];
+    [backTimer invalidate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -535,23 +538,43 @@
     upButton.enabled = YES;
 }
 
-// TODO: Back automatically
-//- (void)resetTimer
-//{
-//    [backTimer invalidate];
-//    backTimer = [NSTimer scheduledTimerWithTimeInterval:BACK_TO_MAIN_TIME_INTERVAL
-//                                                 target:self
-//                                               selector:@selector(backViaTiming)
-//                                               userInfo:nil
-//                                                repeats:NO];
-//}
-//
-//- (void)backViaTiming
-//{
-//    [self saveDataToUserDefault];
-//    
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
+//Back automatically
+-(void)checkWhetherTouched{
+    
+    if ([touchSet isEqualToSet:lastTouchSet]) {
+        unTouchedTime++;
+    }
+    else if(touchSet==NULL&&lastTouchSet==NULL){
+        unTouchedTime++;
+    }
+    else{
+        unTouchedTime = 0;
+        [self resetTimer];
+    }
+    if ((int)unTouchedTime == 4*BACK_TO_MAIN_TIME_INTERVAL) {
+        [self backViaTiming];
+    }
+    lastTouchSet = touchSet;
+    NSLog(@"%d",(int)unTouchedTime/4);
+
+    
+}
+- (void)resetTimer
+{
+    [backTimer invalidate];
+    backTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                 target:self
+                                               selector:@selector(checkWhetherTouched)
+                                               userInfo:nil
+                                                repeats:YES];
+}
+
+- (void)backViaTiming
+{
+    [self saveDataToUserDefault];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Helper Methods
 
@@ -902,6 +925,9 @@
     }
     
     return seconds;
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    touchSet = touches;
 }
 
 @end
