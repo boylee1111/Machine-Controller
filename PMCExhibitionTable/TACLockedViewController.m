@@ -14,6 +14,9 @@
 
 @interface TACLockedViewController () {
     GCDAsyncSocket *asyncSocket;
+    
+    NSTimer *timer;
+    NSInteger count;
 }
 
 @end
@@ -50,6 +53,70 @@
     [super viewWillAppear:animated];
     
     [self writeSettingParameter];
+    
+//    timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+    count = 0;
+    [self repeatFunction];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [timer invalidate];
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+               withTimeout:-1
+                       tag:STOP_ALL_TAG];
+}
+
+- (void) repeatFunction {
+    count++;
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+               withTimeout:-1
+                       tag:STOP_ALL_TAG];
+    if (count < 38) {
+        NSInteger i = (count - 1) % 12 + 1;
+        NSInteger send;
+        if (i <= 7) {
+            //send i;
+            send = i;
+            NSLog(@"send %d", i);
+        } else {
+            send = 14 - i;
+            //send 14 - i;
+            NSLog(@"send %d", 14 - i);
+        }
+        
+        [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(send, 500.0f / 1500.0f * 100) dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
+        [asyncSocket writeData:[START_MOTOR(send) dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:START_MOTOR_TAG(i)];
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+    } else if (count == 38) {
+        //random 1min
+        [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:STOP_ALL_TAG];
+        for (NSInteger i = 1; i <= 7 ; i++) {
+            NSInteger ran;
+            do {
+                ran = arc4random() % 3001 - 1500;
+            } while (abs(ran) <=10);
+            [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, ran / 1500.0f * 100) dataUsingEncoding:NSASCIIStringEncoding]
+                       withTimeout:-1
+                               tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
+            [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
+                       withTimeout:-1
+                               tag:START_MOTOR_TAG(i)];
+
+        }
+        NSLog(@"random");
+        timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+    } else if (count > 38) {
+        count = 0;
+        //stop 5s
+        NSLog(@"stop");
+        timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+    }
 }
 
 #pragma mark - MBSliderViewDelegate Delegate
