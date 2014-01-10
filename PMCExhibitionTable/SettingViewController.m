@@ -450,7 +450,7 @@
     InsetsLabel *label = nil;
     
     // Max speed
-    for (int i = 1; i <= MOTOR_COUNT; ++i) {
+    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
         NSUInteger maxSpeed = [[TACSettingManager sharedManager] maxSpeedOfMotor:i];
         label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i];
         label.text = [NSString stringWithFormat:@"%ld%@", maxSpeed, @"rpm"];
@@ -465,7 +465,7 @@
     }
     
     // Default speed
-    for (int i = 1; i < MOTOR_COUNT; ++i) {
+    for (NSInteger i = 1; i < MOTOR_COUNT; ++i) {
         NSUInteger defaultSpeed = [[TACSettingManager sharedManager] defaultSpeedOfMotor:i];
         label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i];
         label.text = [NSString stringWithFormat:@"%ld%@", defaultSpeed, @"rpm"];
@@ -512,7 +512,7 @@
     InsetsLabel *label = nil;
     
     // Max speed
-    for (int i = 1; i <= MOTOR_COUNT; ++i) {
+    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
         label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i];
         NSUInteger value = [label.text integerValue];
         [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
@@ -520,7 +520,7 @@
     }
     
     // Default speed
-    for (int i = 1; i < MOTOR_COUNT; ++i) {
+    for (NSInteger i = 1; i < MOTOR_COUNT; ++i) {
         label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i];
         NSUInteger value = [label.text integerValue];
         [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i

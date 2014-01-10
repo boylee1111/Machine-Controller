@@ -118,6 +118,9 @@
                                 <state key="normal" backgroundImage="playButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="startButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5WU-jI-HQs"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DL-yB-e2J">
                                 <rect key="frame" x="64" y="133" width="90" height="87"/>
@@ -125,6 +128,9 @@
                                 <state key="normal" backgroundImage="stopButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="stopButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZMY-dA-Yfd"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVy-q5-cSn">
                                 <rect key="frame" x="270" y="119" width="37" height="32"/>
@@ -143,15 +149,47 @@
                                     <segue destination="DgW-fR-ni6" kind="modal" identifier="setting" id="Fd7-bE-NUK"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BZn-yR-d7y">
-                                <rect key="frame" x="268" y="187" width="516" height="34"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tt8-Mc-gkw">
+                                <rect key="frame" x="520" y="177" width="12" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slider_bg" translatesAutoresizingMaskIntoConstraints="NO" id="JFS-Tm-rPC">
+                                <rect key="frame" x="268" y="176" width="516" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BZn-yR-d7y">
+                                <rect key="frame" x="268" y="177" width="516" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="changeSliderValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="rAM-i1-VPm"/>
+                                    <action selector="valueChangeEnd:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="hMB-i5-9MM"/>
+                                    <action selector="valueChangeEnd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lHh-6f-IId"/>
+                                </connections>
                             </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-400" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-yx-0z0">
+                                <rect key="frame" x="491" y="227" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="decoratedLabel" destination="tt8-Mc-gkw" id="99p-Nf-lRd"/>
+                        <outlet property="frequencyLabel" destination="I6o-yx-0z0" id="raW-zj-O56"/>
+                        <outlet property="frequencySlider" destination="BZn-yR-d7y" id="82m-6p-mLp"/>
+                        <outlet property="sliderBackgroundImageView" destination="JFS-Tm-rPC" id="95R-BN-deH"/>
+                        <outlet property="startButton" destination="Kdm-XT-yOP" id="sFc-4d-b5E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -350,6 +388,7 @@ Settings</string>
         <image name="rotronLogo" width="94" height="19"/>
         <image name="sButton" width="19" height="20"/>
         <image name="settingbackground" width="339" height="239"/>
+        <image name="slider_bg" width="258" height="27"/>
         <image name="stopButton" width="29" height="28"/>
         <image name="windjamerButton" width="129" height="51"/>
         <image name="windjamerButton_selected" width="129" height="51"/>
