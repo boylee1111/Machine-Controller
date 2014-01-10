@@ -243,5 +243,13 @@
     self.frequencyLabel.alpha = 1;
     self.sliderBackgroundImageView.alpha = 1;
 }
+- (IBAction)showInfo:(id)sender {
+    TACInfoViewController *infoView = [[TACInfoViewController alloc]initWithNibName:@"TACInfoViewController" bundle:nil];
+    [self addChildViewController:infoView];
+    [self.view addSubview:infoView.view];
+    
+    
+    
+}
 
 @end
