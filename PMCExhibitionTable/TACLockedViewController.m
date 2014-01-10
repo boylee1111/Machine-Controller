@@ -7,7 +7,10 @@
 //
 
 #import "TACLockedViewController.h"
+#import "TACAppDelegate.h"
 #import "CommandExporter.h"
+#import "TACSettingManager.h"
+#import "GCDAsyncSocket.h"
 
 @interface TACLockedViewController () {
     GCDAsyncSocket *asyncSocket;
@@ -31,7 +34,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    TACAppDelegate *appDelegate = (TACAppDelegate *)[[UIApplication sharedApplication] delegate];
+    asyncSocket = appDelegate.asyncSocket;
     
     MBSliderView *s1 = [[MBSliderView alloc] initWithFrame:CGRectMake(285, 440, 450, 44.0)];
     [s1 setText:@">>>"]; // set the label text
@@ -45,23 +49,14 @@
 {
     [super viewWillAppear:animated];
     
-    NSError *err = nil;
-    if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
-                             onPort:PORT
-                        withTimeout:5
-                              error:&err]) {
-        NSLog(@"connect error %@", err);
-    }
+    [self writeSettingParameter];
 }
 
-#pragma mark - Delegates
-
-#pragma mark MBSliderViewDelegate Delegate
+#pragma mark - MBSliderViewDelegate Delegate
 
 - (void) sliderDidSlide:(MBSliderView *)slideView {
-    // Customization example
+    // Customization example    
     [self dismissViewControllerAnimated:UIModalTransitionStyleCrossDissolve completion:nil];
-    
 }
 - (void)didReceiveMemoryWarning
 {
@@ -69,16 +64,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark GCDAsyncSocket Delegate
-
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host
-          port:(uint16_t)port {
-    NSLog(@"Connecting successfully. Demo mode begins.");
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+- (void)writeSettingParameter
 {
-    NSLog(@"Wirting data tag = %ld", tag);
+    NSUInteger num = 5;
+    
+    [asyncSocket writeData:[SET_HEIGH([TACSettingManager sharedManager].Height) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [asyncSocket writeData:[START_MOTOR(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [asyncSocket writeData:[ROTATE_MOTOR_CLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
+    [asyncSocket writeData:[ROTATE_MOTOR_COUNTERCLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:88];
+    [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(num, [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:num]) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
 }
 
 @end

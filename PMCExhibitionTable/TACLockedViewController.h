@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBSliderView.h"
-#import "GCDAsyncSocket.h"
 
-@interface TACLockedViewController : UIViewController<MBSliderViewDelegate, GCDAsyncSocketDelegate>
+@interface TACLockedViewController : UIViewController<MBSliderViewDelegate>
 
 @end

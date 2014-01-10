@@ -7,6 +7,8 @@
 //
 
 #import "TACViewController.h"
+#import "TACAppDelegate.h"
+#import "GCDAsyncSocket.h"
 #import "CommandExporter.h"
 #import "TACSettingManager.h"
 #import "TACHumanImageView.h"
@@ -42,8 +44,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-
+    TACAppDelegate *appDelegate = (TACAppDelegate *)[[UIApplication sharedApplication] delegate];
+    asyncSocket = appDelegate.asyncSocket;
     
     [self.frequencySlider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     [self hideTheSlider];
@@ -80,14 +82,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSError *err = nil;
-    if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
-                             onPort:PORT
-                        withTimeout:5
-                              error:&err]) {
-        NSLog(@"connect error %@", err);
-    }
+
+    [self writeSettingParameter];
 }
 
 - (void)refreshHumanHeight{
@@ -238,20 +234,6 @@
             [TACSettingManager sharedManager].Height = 200;
         }
     [self refreshHumanHeight];
-}
-
-#pragma mark - GCDAsyncSocket Delegate
-
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host
-          port:(uint16_t)port {
-    NSLog(@"Connecting successfully. Setting initialize");
-    
-    [self writeSettingParameter];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"Wirting data tag = %ld", tag);
 }
 
 #pragma mark - Helper Methods

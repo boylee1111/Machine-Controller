@@ -150,21 +150,21 @@
 			children = (
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
 				A07ACBF6187E824200F8479D /* Components */,
+				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
 				D8E25439187AC2D500C0913E /* Main.storyboard */,
+				A0DFDEDE188013BF00735A96 /* MBSliderView.h */,
+				A0DFDEDD188013BF00735A96 /* MBSliderView.m */,
 				2931D250187D294000752049 /* SettingViewController.h */,
 				2931D251187D294000752049 /* SettingViewController.m */,
+				D8E2542E187AC2D500C0913E /* Supporting Files */,
+				D8E25436187AC2D500C0913E /* TACAppDelegate.h */,
+				D8E25437187AC2D500C0913E /* TACAppDelegate.m */,
 				D81D8B56187FD63200D9FBC1 /* TACLockedViewController.h */,
 				D81D8B57187FD63200D9FBC1 /* TACLockedViewController.m */,
-				D8E25436187AC2D500C0913E /* TACAppDelegate.h */,
-				A0DFDEDD188013BF00735A96 /* MBSliderView.m */,
-				A0DFDEDE188013BF00735A96 /* MBSliderView.h */,
-				D8E25437187AC2D500C0913E /* TACAppDelegate.m */,
 				A077A671187D86AE008F97A4 /* TACSettingManager.h */,
 				A077A672187D86AE008F97A4 /* TACSettingManager.m */,
 				D8E2543C187AC2D500C0913E /* TACViewController.h */,
 				D8E2543D187AC2D500C0913E /* TACViewController.m */,
-				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
-				D8E2542E187AC2D500C0913E /* Supporting Files */,
 			);
 			path = PMCExhibitionTable;
 			sourceTree = "<group>";

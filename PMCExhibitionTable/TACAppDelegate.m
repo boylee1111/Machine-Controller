@@ -8,11 +8,25 @@
 
 #import "TACAppDelegate.h"
 
+#define HOST_IP_ADDRESS @"192.168.1.105"
+#define LOCAL_IP_ADDRESS @"127.0.0.1"
+#define PORT 4000
+
 @implementation TACAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    NSError *err = nil;
+    if (![self.asyncSocket connectToHost:LOCAL_IP_ADDRESS
+                             onPort:PORT
+                        withTimeout:5
+                              error:&err]) {
+        NSLog(@"connect error %@", err);
+    }
+    
     return YES;
 }
 							
@@ -41,6 +55,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [self.asyncSocket disconnect];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    NSLog(@"Connect successfully.");
 }
 
 @end
