@@ -82,14 +82,9 @@
 {
     [super viewWillAppear:animated];
     
-    NSError *err = nil;
-    if (![asyncSocket connectToHost:LOCAL_IP_ADDRESS
-                             onPort:PORT
-                        withTimeout:5
-                              error:&err]) {
-        NSLog(@"connect error %@", err);
-    }
     [self refreshHumanHeight];
+
+    [self writeSettingParameter];
 }
 
 - (void)refreshHumanHeight{
