@@ -77,11 +77,11 @@
         if (i <= 7) {
             //send i;
             send = i;
-            NSLog(@"send %d", i);
+//            NSLog(@"send %d", i);
         } else {
             send = 14 - i;
             //send 14 - i;
-            NSLog(@"send %d", 14 - i);
+//            NSLog(@"send %d", 14 - i);
         }
         
         [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(send, 500.0f / 1500.0f * 100) dataUsingEncoding:NSASCIIStringEncoding]
@@ -90,7 +90,7 @@
         [asyncSocket writeData:[START_MOTOR(send) dataUsingEncoding:NSASCIIStringEncoding]
                    withTimeout:-1
                            tag:START_MOTOR_TAG(i)];
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+        timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
     } else if (count == 38) {
         //random 1min
         [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
@@ -104,17 +104,20 @@
             [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, ran / 1500.0f * 100) dataUsingEncoding:NSASCIIStringEncoding]
                        withTimeout:-1
                                tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
-            [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
-                       withTimeout:-1
-                               tag:START_MOTOR_TAG(i)];
+//            [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
+//                       withTimeout:-1
+//                               tag:START_MOTOR_TAG(i)];
 
         }
-        NSLog(@"random");
-        timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
+        [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:START_ALL_TAG];
+//        NSLog(@"random");
+        timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
     } else if (count > 38) {
         count = 0;
         //stop 5s
-        NSLog(@"stop");
+//        NSLog(@"stop");
         timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(repeatFunction) userInfo:nil repeats:false];
     }
 }
