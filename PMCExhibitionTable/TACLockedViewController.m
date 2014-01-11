@@ -122,7 +122,9 @@
 #pragma mark - MBSliderViewDelegate Delegate
 
 - (void) sliderDidSlide:(MBSliderView *)slideView {
-    // Customization example    
+    // Customization example
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:STOP_ALL_TAG];
+    
     [self dismissViewControllerAnimated:UIModalTransitionStyleCrossDissolve completion:nil];
 }
 - (void)didReceiveMemoryWarning

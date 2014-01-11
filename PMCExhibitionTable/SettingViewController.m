@@ -934,6 +934,7 @@
     
     return seconds;
 }
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [[event allTouches] anyObject];
     touchPoint = [touch locationInView:self.view];
