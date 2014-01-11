@@ -58,11 +58,12 @@
         longPress.minimumPressDuration = 2;
         UIButton *logoButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
         [logoButton addGestureRecognizer:longPress];
+        
         //add button and slider into touch target
         UIControl *temp = [[UIControl alloc]init];
         for (int i= 0; i<self.objectsInView.count; i++) {
             temp = self.objectsInView[i];
-            [temp addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents ];
+            [temp addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
         }
         
     }

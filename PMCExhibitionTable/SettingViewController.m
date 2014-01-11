@@ -34,8 +34,8 @@
 @interface SettingViewController () {
     NSTimer *backTimer;
     NSInteger *unTouchedTime;
-    NSSet *touchSet;
-    NSSet *lastTouchSet;
+    CGPoint touchPoint;
+    CGPoint lastTouchPoint;
     BOOL isCounting; // Long pressed or not
     NSUInteger valueChangeRate; // Record rate when long press
 }
@@ -541,10 +541,7 @@
 //Back automatically
 -(void)checkWhetherTouched{
     
-    if ([touchSet isEqualToSet:lastTouchSet]) {
-        unTouchedTime++;
-    }
-    else if(touchSet==NULL&&lastTouchSet==NULL){
+    if (CGPointEqualToPoint(touchPoint, lastTouchPoint) ) {
         unTouchedTime++;
     }
     else{
@@ -554,7 +551,7 @@
     if ((int)unTouchedTime == 4*BACK_TO_MAIN_TIME_INTERVAL) {
         [self backViaTiming];
     }
-    lastTouchSet = touchSet;
+    lastTouchPoint = touchPoint;
     NSLog(@"%d",(int)unTouchedTime/4);
 
     
@@ -619,6 +616,8 @@
     UIButton* upButton;
     UIButton* downButton;
     
+
+    
     //Maximum Speed Setting
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
@@ -662,6 +661,9 @@
                        action:@selector(downButtonInMaxSpeedSettingClicked:)
              forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:downButton];
+        
+        [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
+        [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
     }
     
     //Default Speed Settings
@@ -710,6 +712,8 @@
                        action:@selector(downButtonInDefaultSpeedSettingClicked:)
              forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:downButton];
+        [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
+        [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
     }
     
     //Time
@@ -759,6 +763,8 @@
                    action:@selector(downButtonOfDemoModeClicked:)
          forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:downButton];
+    [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
+    [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
     
     //Height
     x = 482.0f;
@@ -807,6 +813,8 @@
                    action:@selector(downButtonOfHeightClicked:)
          forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:downButton];
+    [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
+    [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
 }
 
 - (void)updateLabelsAndButtonStatus
@@ -927,7 +935,9 @@
     return seconds;
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    touchSet = touches;
+    UITouch *touch = [[event allTouches] anyObject];
+    touchPoint = [touch locationInView:self.view];
+    NSLog(@"Touch x : %f y : %f", touchPoint.x, touchPoint.y);
 }
 
 @end
