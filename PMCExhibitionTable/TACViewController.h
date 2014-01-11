@@ -11,4 +11,5 @@
 #import "TACInfoViewController.h"
 @interface TACViewController : UIViewController<UIAlertViewDelegate>
 
+@property (strong,nonatomic) IBOutletCollection(UIControl) NSArray *objectsInView;
 @end

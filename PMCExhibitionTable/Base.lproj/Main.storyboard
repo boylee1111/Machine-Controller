@@ -195,6 +195,19 @@
                         <outlet property="frequencySlider" destination="BZn-yR-d7y" id="82m-6p-mLp"/>
                         <outlet property="sliderBackgroundImageView" destination="JFS-Tm-rPC" id="95R-BN-deH"/>
                         <outlet property="startButton" destination="Kdm-XT-yOP" id="sFc-4d-b5E"/>
+                        <outletCollection property="objectsInView" destination="djd-R7-nmo" id="qka-e7-xVK"/>
+                        <outletCollection property="objectsInView" destination="T8a-8G-mVS" id="HCk-Ht-KKF"/>
+                        <outletCollection property="objectsInView" destination="9kM-z6-K5e" id="VXh-aC-euI"/>
+                        <outletCollection property="objectsInView" destination="G7v-cr-ndH" id="6Hc-F0-Q9R"/>
+                        <outletCollection property="objectsInView" destination="oOG-T0-9oE" id="IA1-NG-dip"/>
+                        <outletCollection property="objectsInView" destination="rAs-74-qI7" id="9Tn-zX-QaA"/>
+                        <outletCollection property="objectsInView" destination="Z0g-46-x1N" id="mMd-YD-act"/>
+                        <outletCollection property="objectsInView" destination="qzB-Qa-B17" id="6oL-or-rKf"/>
+                        <outletCollection property="objectsInView" destination="Kdm-XT-yOP" id="sv8-KL-eZZ"/>
+                        <outletCollection property="objectsInView" destination="0DL-yB-e2J" id="MRo-yT-kOo"/>
+                        <outletCollection property="objectsInView" destination="BVy-q5-cSn" id="U7V-y0-ZXa"/>
+                        <outletCollection property="objectsInView" destination="oqz-MC-v8K" id="Ewk-pd-ob3"/>
+                        <outletCollection property="objectsInView" destination="BZn-yR-d7y" id="GTm-eN-smY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -26,8 +26,8 @@
     GCDAsyncSocket *asyncSocket;
     NSTimer *backTimer;
     NSInteger *unTouchedTime;
-    NSSet *touchSet;
-    NSSet *lastTouchSet;
+    CGPoint touchPoint;
+    CGPoint lastTouchPoint;
     NSUInteger currentModifyMotorNumber; // 记录当前slider更改哪个motor数值
 }
 
@@ -58,6 +58,13 @@
         longPress.minimumPressDuration = 2;
         UIButton *logoButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
         [logoButton addGestureRecognizer:longPress];
+        //add button and slider into touch target
+        UIControl *temp = [[UIControl alloc]init];
+        for (int i= 0; i<self.objectsInView.count; i++) {
+            temp = self.objectsInView[i];
+            [temp addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents ];
+        }
+        
     }
     
     
@@ -260,10 +267,7 @@
 #pragma mark - Back Timer
 -(void)checkWhetherTouched{
     
-    if ([touchSet isEqualToSet:lastTouchSet]) {
-        unTouchedTime++;
-    }
-    else if(touchSet==NULL&&lastTouchSet==NULL){
+    if (CGPointEqualToPoint(touchPoint, lastTouchPoint) ) {
         unTouchedTime++;
     }
     else{
@@ -273,7 +277,7 @@
     if ((int)unTouchedTime == 4*[TACSettingManager sharedManager].DemoModeTime) {
         [self demoViaTiming];
     }
-    lastTouchSet = touchSet;
+    lastTouchPoint = touchPoint;
     NSLog(@"%d",(int)unTouchedTime/4);
     
     
@@ -360,7 +364,9 @@
     }
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    touchSet = touches;
+    UITouch *touch = [[event allTouches] anyObject];
+    touchPoint = [touch locationInView:self.view];
+
 }
 
 @end
