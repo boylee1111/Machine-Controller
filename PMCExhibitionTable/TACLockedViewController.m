@@ -61,9 +61,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [timer invalidate];
-    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
-               withTimeout:-1
-                       tag:STOP_ALL_TAG];
 }
 
 - (void) repeatFunction {

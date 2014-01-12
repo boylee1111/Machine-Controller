@@ -93,9 +93,19 @@
 {
     [super viewWillAppear:animated];
     
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+               withTimeout:-1
+                       tag:STOP_ALL_TAG];
+    [asyncSocket writeData:[SET_HEIGH([TACSettingManager sharedManager].Height) dataUsingEncoding:NSASCIIStringEncoding]
+               withTimeout:-1
+                       tag:SET_HEIGHT_TAG];
+    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+        [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:i]) dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
+    }
+    
     [self refreshHumanHeight];
-
-    [self writeSettingParameter];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -110,6 +120,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+               withTimeout:-1
+                       tag:STOP_ALL_TAG];
     
     [backTimer invalidate];
 }
@@ -303,19 +317,6 @@
 
 
 #pragma mark - Helper Methods
-
-- (void)writeSettingParameter
-{
-    NSUInteger num = 5;
-    
-    [asyncSocket writeData:[SET_HEIGH([TACSettingManager sharedManager].Height) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-    [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-    [asyncSocket writeData:[START_MOTOR(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-    [asyncSocket writeData:[ROTATE_MOTOR_CLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-    [asyncSocket writeData:[ROTATE_MOTOR_COUNTERCLOCKWISE(num) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:88];
-    [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(num, [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:num]) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:888];
-}
 
 - (void)hideTheSlider
 {
