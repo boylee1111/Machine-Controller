@@ -263,6 +263,10 @@
 }
 
 -(void) dragToHumanHeight:(UIPanGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [asyncSocket writeData:[SET_HEIGH([TACSettingManager sharedManager].Height) dataUsingEncoding:NSASCIIStringEncoding] withTimeout:-1 tag:SET_HEIGHT_TAG ];
+        return ;
+    }
     UIImageView *view = (UIImageView *)[self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
 //    CGPoint vector = [sender translationInView:view.nil];
     CGPoint vector = [sender velocityInView:nil];
