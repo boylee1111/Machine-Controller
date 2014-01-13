@@ -33,7 +33,7 @@
 
 @interface SettingViewController () {
     NSTimer *backTimer;
-    NSInteger *unTouchedTime;
+    NSInteger unTouchedTime;
     CGPoint touchPoint;
     CGPoint lastTouchPoint;
     BOOL isCounting; // Long pressed or not
@@ -548,11 +548,11 @@
         unTouchedTime = 0;
         [self resetTimer];
     }
-    if ((int)unTouchedTime == 4*BACK_TO_MAIN_TIME_INTERVAL) {
+    if (unTouchedTime == BACK_TO_MAIN_TIME_INTERVAL) {
         [self backViaTiming];
     }
     lastTouchPoint = touchPoint;
-    NSLog(@"%d",(int)unTouchedTime/4);
+    NSLog(@"%d",unTouchedTime);
 
     
 }

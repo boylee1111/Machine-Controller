@@ -25,7 +25,7 @@
 @interface TACViewController () {
     GCDAsyncSocket *asyncSocket;
     NSTimer *backTimer;
-    NSInteger *unTouchedTime;
+    NSInteger unTouchedTime;
     CGPoint touchPoint;
     CGPoint lastTouchPoint;
     NSUInteger currentModifyMotorNumber; // 记录当前slider更改哪个motor数值
@@ -293,11 +293,11 @@
         unTouchedTime = 0;
         [self resetTimer];
     }
-    if ((int)unTouchedTime == 4*[TACSettingManager sharedManager].DemoModeTime) {
+    if (unTouchedTime == [TACSettingManager sharedManager].DemoModeTime) {
         [self demoViaTiming];
     }
     lastTouchPoint = touchPoint;
-    NSLog(@"%d",(int)unTouchedTime/4);
+    NSLog(@"%d",unTouchedTime);
     
     
 }
