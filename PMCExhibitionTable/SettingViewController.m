@@ -583,15 +583,15 @@
     
     MaxSpeedBar.layer.borderWidth = 3.0f;
     MaxSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    MaxSpeedBar.layer.cornerRadius = 45.0f;
+    MaxSpeedBar.layer.cornerRadius = 40.0f;
     
     DemoModeBar.layer.borderWidth = 3.0f;
     DemoModeBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    DemoModeBar.layer.cornerRadius = 45.0f;
+    DemoModeBar.layer.cornerRadius = 40.0f;
     
     DefaultSpeedBar.layer.borderWidth = 3.0f;
     DefaultSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    DefaultSpeedBar.layer.cornerRadius = 45.0f;
+    DefaultSpeedBar.layer.cornerRadius = 40.0f;
     
     DefaultHeightBar.layer.borderWidth = 3.0f;
     DefaultHeightBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
