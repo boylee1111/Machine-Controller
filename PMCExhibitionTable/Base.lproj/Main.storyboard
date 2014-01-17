@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -136,7 +136,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVy-q5-cSn">
-                                <rect key="frame" x="270" y="119" width="37" height="32"/>
+                                <rect key="frame" x="261" y="111" width="38" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="demoButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -146,7 +146,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqz-MC-v8K">
-                                <rect key="frame" x="722" y="56" width="60" height="65"/>
+                                <rect key="frame" x="742" y="43" width="60" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="sButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -417,33 +417,33 @@ Settings</string>
         </scene>
     </scenes>
     <resources>
-        <image name="ametekButton" width="108" height="46"/>
+        <image name="ametekButton" width="325" height="142"/>
         <image name="ametekButton_selected" width="108" height="46"/>
         <image name="ametekLogo" width="125" height="100"/>
         <image name="arrow" width="175" height="125"/>
-        <image name="background" width="339" height="239"/>
+        <image name="background" width="1024" height="768"/>
         <image name="demoButton" width="12" height="9"/>
-        <image name="dunkermotoren" width="114" height="46"/>
+        <image name="dunkermotoren" width="358" height="141"/>
         <image name="dunkermotorenLogo" width="161" height="175"/>
         <image name="dunkermotoren_selected" width="114" height="46"/>
         <image name="haydonLogo" width="159" height="55"/>
-        <image name="haydonherkButton" width="120" height="48"/>
+        <image name="haydonherkButton" width="350" height="153"/>
         <image name="haydonherkButton_selected" width="120" height="48"/>
         <image name="infoButton" width="19" height="19"/>
-        <image name="nautilairButton" width="120" height="52"/>
+        <image name="nautilairButton" width="361" height="165"/>
         <image name="nautilairButton_selected" width="120" height="52"/>
         <image name="nautilairLogo" width="141" height="59"/>
-        <image name="pittmanButton" width="116" height="46"/>
+        <image name="pittmanButton" width="349" height="142"/>
         <image name="pittmanButton_selected" width="116" height="46"/>
         <image name="pittmanLogo" width="99" height="46"/>
-        <image name="playButton" width="32" height="29"/>
-        <image name="rotronButton" width="111" height="46"/>
+        <image name="playButton" width="98" height="94"/>
+        <image name="rotronButton" width="332" height="141"/>
         <image name="rotronButton_selected" width="111" height="46"/>
         <image name="rotronLogo" width="94" height="19"/>
         <image name="sButton" width="19" height="20"/>
         <image name="slider_bg" width="258" height="27"/>
-        <image name="stopButton" width="29" height="28"/>
-        <image name="windjamerButton" width="129" height="51"/>
+        <image name="stopButton" width="84" height="83"/>
+        <image name="windjamerButton" width="389" height="159"/>
         <image name="windjamerButton_selected" width="129" height="51"/>
         <image name="windjammerLogo" width="146" height="38"/>
     </resources>
