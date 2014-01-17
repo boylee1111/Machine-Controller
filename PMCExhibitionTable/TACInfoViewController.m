@@ -28,7 +28,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[[UIColor blackColor]colorWithAlphaComponent:0.8]];
-    [self.view.layer setCornerRadius:100];
     [self.textView.layer setCornerRadius:100];
     
 }
