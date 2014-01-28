@@ -157,9 +157,27 @@
             [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, speed) dataUsingEncoding:NSASCIIStringEncoding]
                        withTimeout:-1
                                tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
-            [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
-                       withTimeout:-1
-                               tag:START_MOTOR_TAG(i)];
+        }
+    }
+    
+    BOOL isAllSelected = YES;
+    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+        UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+        if (![logo isSelected]) isAllSelected = NO;
+    }
+    
+    if (isAllSelected) {
+        [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:START_ALL_TAG];
+    } else {
+        for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+            UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+            if ([logo isSelected]) {
+                [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
+                           withTimeout:-1
+                                   tag:START_MOTOR_TAG(i)];
+            }
         }
     }
     
