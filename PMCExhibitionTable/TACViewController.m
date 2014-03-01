@@ -29,9 +29,9 @@
     CGPoint touchPoint;
     CGPoint lastTouchPoint;
     NSUInteger currentModifyMotorNumber; // 记录当前slider更改哪个motor数值
+    BOOL startStopButtonStatus; // 0 -- start, 1 -- stop
 }
-
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *startStopButton;
 @property (weak, nonatomic) IBOutlet UISlider *frequencySlider;
 @property (weak, nonatomic) IBOutlet UILabel *decoratedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *frequencyLabel;
@@ -52,6 +52,13 @@
     [self.frequencySlider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     [self hideTheSlider];
     
+    // Add start all button gesture
+    UILongPressGestureRecognizer *startAllPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressStartStopButtonToStartAll:)];
+    startAllPressGesture.minimumPressDuration = 2;
+    [self.startStopButton addGestureRecognizer:startAllPressGesture];
+    
+    // Add long press gesture to logo
     for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(longPressToPopTheSlider:)];
@@ -65,9 +72,7 @@
             temp = self.objectsInView[i];
             [temp addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
         }
-        
     }
-    
     
     UIImage *humanImage = [UIImage imageNamed:@"human"];
     UIImageView *humanImageView = [[UIImageView alloc] initWithImage:humanImage];
@@ -93,6 +98,8 @@
 {
     [super viewWillAppear:animated];
     
+    startStopButtonStatus = false;
+    
     [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
                withTimeout:-1
                        tag:STOP_ALL_TAG];
@@ -107,6 +114,7 @@
     
     [self refreshHumanHeight];
 }
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -117,6 +125,7 @@
                                                userInfo:nil
                                                 repeats:YES];
 }
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -127,7 +136,6 @@
     
     [backTimer invalidate];
 }
-
 
 - (void)refreshHumanHeight{
     UIImageView *humanImage = (UIImageView*) [self.view viewWithTag:BASE_TAG_FOR_HUMAN_HEIGHT];
@@ -149,51 +157,66 @@
 
 #pragma mark - Button Action
 
-- (IBAction)startButtonClicked:(id)sender {
-    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
-        UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
-        if ([logo isSelected]) {
-            CGFloat speed = [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:i];
-            [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, speed) dataUsingEncoding:NSASCIIStringEncoding]
-                       withTimeout:-1
-                               tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
-        }
-    }
-    
-    BOOL isAllSelected = YES;
-    for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
-        UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
-        if (![logo isSelected]) isAllSelected = NO;
-    }
-    
-    if (isAllSelected) {
-        [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
-                   withTimeout:-1
-                           tag:START_ALL_TAG];
-    } else {
+- (IBAction)startStopButtonClicked:(id)sender {
+    if (!startStopButtonStatus) {
         for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
             UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
             if ([logo isSelected]) {
-                [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
+                CGFloat speed = [[TACSettingManager sharedManager] defaultSpeedOfMotorWithPercent:i];
+                [asyncSocket writeData:[SET_FREQUENCY_FOR_MOTOR_WITH_PERCENTAGE(i, speed) dataUsingEncoding:NSASCIIStringEncoding]
                            withTimeout:-1
-                                   tag:START_MOTOR_TAG(i)];
+                                   tag:SET_FREQUENCY_FOR_MOTOR_TAG(i)];
             }
         }
+        
+        BOOL isAllSelected = YES;
+        for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+            UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+            if (![logo isSelected]) isAllSelected = NO;
+        }
+        
+        if (isAllSelected) {
+            [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                       withTimeout:-1
+                               tag:START_ALL_TAG];
+        } else {
+            for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+                UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+                if ([logo isSelected]) {
+                    [asyncSocket writeData:[START_MOTOR(i) dataUsingEncoding:NSASCIIStringEncoding]
+                               withTimeout:-1
+                                       tag:START_MOTOR_TAG(i)];
+                }
+            }
+        }
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            [self hideTheSlider];
+        }];
+        
+        // Button status change
+        [self.startStopButton setBackgroundImage:[UIImage imageNamed:@"stopButton"]
+                                        forState:UIControlStateNormal];
+        startStopButtonStatus = 1;
+    } else {
+        [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
+                   withTimeout:-1
+                           tag:STOP_ALL_TAG];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            [self hideTheSlider];
+        }];
+        
+        for (NSInteger i = 1; i <= MOTOR_COUNT; ++i) {
+            UIButton *logo = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_LOGO_BUTTON + i];
+            logo.selected = false;
+        }
+        
+        // Button status change
+        [self.startStopButton setBackgroundImage:[UIImage imageNamed:@"playButton"]
+                                        forState:UIControlStateNormal];
+        startStopButtonStatus = 0;
     }
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        [self hideTheSlider];
-    }];
-}
-
-- (IBAction)stopButtonClicked:(id)sender {
-    [asyncSocket writeData:[STOP_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
-               withTimeout:-1
-                       tag:STOP_ALL_TAG];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        [self hideTheSlider];
-    }];
 }
 
 - (IBAction)logoSelectOrDeselect:(UIButton *)sender {
@@ -234,9 +257,9 @@
 
 #pragma mark - Selectors
 
-- (void)longPressStartButtonToStartAll:(UILongPressGestureRecognizer *)sender
+- (void)longPressStartStopButtonToStartAll:(UILongPressGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateEnded) {
+    if (!startStopButtonStatus && sender.state == UIGestureRecognizerStateEnded) {
         [asyncSocket writeData:[START_ALL_MOTORS_MSG dataUsingEncoding:NSASCIIStringEncoding]
                    withTimeout:-1
                            tag:START_ALL_TAG];
@@ -244,6 +267,11 @@
         [UIView animateWithDuration:0.5 animations:^{
             [self hideTheSlider];
         }];
+        
+        // Button status change
+        [self.startStopButton setBackgroundImage:[UIImage imageNamed:@"stopButton"]
+                                        forState:UIControlStateNormal];
+        startStopButtonStatus = 1;
     }
 }
 

@@ -66,10 +66,6 @@
     
     
     [self addSettingLabelsAndButtons];
-    
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(resetTimer)];
-//    longPress.minimumPressDuration = 0;
-//    [self.view addGestureRecognizer:longPress];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,232 +101,12 @@
 
 #pragma mark - Button Action
 
-//- (void)upButtonInMaxSpeedSettingClicked:(UIButton *)sender
-//{
-//    NSUInteger num = sender.tag - BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON;
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
-//    NSUInteger value = [label.text integerValue];
-//    label.text = [NSString stringWithFormat:@"%ld%@", ++value, @"rpm"];
-//    
-//    if (value == MAX_SPEED) sender.enabled = NO;
-//    UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON + num];
-//    downButton.enabled = YES;
-//    UIButton *defaultUpButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
-//    defaultUpButton.enabled = YES;
-//}
-//
-//- (void)downButtonInMaxSpeedSettingClicked:(UIButton *)sender
-//{
-//    NSUInteger num = sender.tag - BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON;
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
-//    NSUInteger value = [label.text integerValue];
-//    label.text = [NSString stringWithFormat:@"%ld%@", --value, @"rpm"];
-//    
-//    InsetsLabel *defaultLabel = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
-//    NSUInteger defaultValue = [defaultLabel.text integerValue];
-//    if (defaultValue > value) {
-//        defaultLabel.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
-//        UIButton *defaultUpButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
-//        defaultUpButton.enabled = NO;
-//    }
-//    
-//    if (value == MIN_SPEED_FOR_MAX_SPEED) sender.enabled = NO;
-//    UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON + num];
-//    upButton.enabled = YES;
-//}
-//
-//- (void)upButtonInDefaultSpeedSettingClicked:(UIButton *)sender
-//{
-//    NSUInteger num = sender.tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON;
-//    InsetsLabel *maxLabel = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + num];
-//    NSUInteger maxValue = [maxLabel.text integerValue];
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
-//    NSUInteger value = [label.text integerValue];
-//    
-//    if (value == MIN_SPEED) value = LIMIT_SPEED;
-//    else value++;
-//    label.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
-//    
-//    if (value == maxValue) sender.enabled = NO;
-//    UIButton *downButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON + num];
-//    downButton.enabled = YES;
-//}
-//
-//- (void)downButtonInDefaultSpeedSettingClicked:(UIButton *)sender
-//{
-//    NSUInteger num = sender.tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON;
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + num];
-//    NSUInteger value = [label.text integerValue];
-//    
-//    if (value == LIMIT_SPEED) {
-//        value = MIN_SPEED;
-//        sender.enabled = NO;
-//    } else {
-//        value--;
-//    }
-//    label.text = [NSString stringWithFormat:@"%ld%@", value, @"rpm"];
-//    UIButton *upButton = (UIButton *)[self.view viewWithTag:BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + num];
-//    upButton.enabled = YES;
-//}
-//
-//- (void)upButtonOfDemoModeClicked:(UIButton *)sender
-//{
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
-//    NSUInteger value = [self getSecondsFromFormatTime:label.text];
-//    label.text = [self getFormatTimeFromSeconds:++value];
-//    
-//    if (value == MAX_DEMO_MODE_TIME) sender.enabled = NO;
-//    UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON];
-//    downButton.enabled = YES;
-//}
-//
-//- (void)downButtonOfDemoModeClicked:(UIButton *)sender
-//{
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_LABEL];
-//    NSUInteger value = [self getSecondsFromFormatTime:label.text];
-//    label.text = [self getFormatTimeFromSeconds:--value];
-//    
-//    if (value == MIN_DEMO_MODE_TIME) sender.enabled = NO;
-//    UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_DEMO_MODE_TIME_UP_BUTTON];
-//    upButton.enabled = YES;
-//}
-//
-//- (void)upButtonOfHeightClicked:(UIButton *)sender
-//{
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
-//    NSUInteger value = [label.text floatValue] * 100;
-//    label.text = [NSString stringWithFormat:@"%.2f%@", ++value / 100.0, @" m"];
-//    
-//    if (value == MAX_HEIGHT) sender.enabled = NO;
-//    UIButton *downButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_DOWN_BUTTON];
-//    downButton.enabled = YES;
-//}
-//
-//- (void)downButtonOfHeightClicked:(UIButton *)sender
-//{
-//    InsetsLabel *label = (InsetsLabel *)[self.view viewWithTag:TAG_FOR_HEIGHT_LABEL];
-//    NSUInteger value = [label.text floatValue] * 100;
-//    label.text = [NSString stringWithFormat:@"%.2f%@", --value / 100.0, @" m"];
-//    
-//    if (value == MIN_HEIGHT) sender.enabled = NO;
-//    UIButton *upButton = (UIButton *)[self.view viewWithTag:TAG_FOR_HEIGHT_UP_BUTTON];
-//    upButton.enabled = YES;
-//}
-
 - (IBAction)close:(id)sender
 {
     [self saveDataToUserDefault];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-#pragma mark - Selectors
-
-#pragma mark Long Press Gesture Selectors
-
-//- (void)upButtonInMaxSpeedSettingLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(increaseMaxSpeed:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)downButtonInMaxSpeedSettingLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(decreaseMaxSpeed:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)upButtonInDefaultSpeedSettingLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(increaseDefaultSpeed:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)downButtonInDefaultSpeedSettingLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(decreaseDefaultSpeed:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)upButtonOfDemoModeLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(increaseDemoModeTime:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)downButtonOfDemoModeLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(decreaseDemoModeTime:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)upButtonOfHeightLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(increaseHeight:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
-//
-//- (void)downButtonOfHeightLongPressed:(UILongPressGestureRecognizer *)sender
-//{
-//    valueChangeRate = 0;
-//    if (isCounting) return;
-//    
-//    isCounting = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:LONG_PRESS_VALUE_CHANGE_INTERVAL
-//                                     target:self
-//                                   selector:@selector(decreaseHeight:)
-//                                   userInfo:sender
-//                                    repeats:YES];
-//}
 
 #pragma mark Timer Selectors
 
@@ -633,37 +409,6 @@
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
-        
-//        upButtonRect = CGRectMake(x + width- 25, y + 5 + (i - 1) * difference, 20, 20);
-//        upButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [upButton setFrame:upButtonRect];
-//        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
-//        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
-//        upButton.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON + i;
-//        UILongPressGestureRecognizer *upInMaxLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(upButtonInMaxSpeedSettingLongPressed:)];
-//        [upInMaxLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//        [upButton addGestureRecognizer:upInMaxLongPressGesture];
-//        [upButton addTarget:self
-//                     action:@selector(upButtonInMaxSpeedSettingClicked:)
-//           forControlEvents:UIControlEventTouchDown];
-//        [self.view addSubview:upButton];
-//        
-//        downButtonRect = CGRectMake(x + width- 25, y + 30 + (i - 1) * difference, 20, 20);
-//        downButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [downButton setFrame:downButtonRect];
-//        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
-//        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
-//        downButton.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON + i;
-//        UILongPressGestureRecognizer *downInMaxLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(downButtonInMaxSpeedSettingLongPressed:)];
-//        [downInMaxLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//        [downButton addGestureRecognizer:downInMaxLongPressGesture];
-//        [downButton addTarget:self
-//                       action:@selector(downButtonInMaxSpeedSettingClicked:)
-//             forControlEvents:UIControlEventTouchDown];
-//        [self.view addSubview:downButton];
-//        
-//        [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
-//        [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
     }
     
     //Default Speed Settings
@@ -684,36 +429,6 @@
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
-        
-//        upButtonRect = CGRectMake(x + width- 25, y + 5 + (i - 1) * difference, 20, 20);
-//        upButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [upButton setFrame:upButtonRect];
-//        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
-//        [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
-//        upButton.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON + i;
-//        UILongPressGestureRecognizer *upInDefaultLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(upButtonInDefaultSpeedSettingLongPressed:)];
-//        [upInDefaultLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//        [upButton addGestureRecognizer:upInDefaultLongPressGesture];
-//        [upButton addTarget:self
-//                     action:@selector(upButtonInDefaultSpeedSettingClicked:)
-//           forControlEvents:UIControlEventTouchDown];
-//        [self.view addSubview:upButton];
-//        
-//        downButtonRect = CGRectMake(x + width- 25, y + 30 + (i - 1) * difference, 20, 20);
-//        downButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [downButton setFrame:downButtonRect];
-//        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
-//        [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
-//        downButton.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON + i;
-//        UILongPressGestureRecognizer *downDefaultLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(downButtonInDefaultSpeedSettingLongPressed:)];
-//        [downDefaultLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//        [downButton addGestureRecognizer:downDefaultLongPressGesture];
-//        [downButton addTarget:self
-//                       action:@selector(downButtonInDefaultSpeedSettingClicked:)
-//             forControlEvents:UIControlEventTouchDown];
-//        [self.view addSubview:downButton];
-//        [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
-//        [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
     }
     
     //Time
@@ -736,36 +451,6 @@
     label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
     
-//    upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
-//    upButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [upButton setFrame:upButtonRect];
-//    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
-//    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
-//    upButton.tag = TAG_FOR_DEMO_MODE_TIME_UP_BUTTON;
-//    UILongPressGestureRecognizer *upInTimeLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(upButtonOfDemoModeLongPressed:)];
-//    [upInTimeLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//    [upButton addGestureRecognizer:upInTimeLongPressGesture];
-//    [upButton addTarget:self
-//                 action:@selector(upButtonOfDemoModeClicked:)
-//       forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:upButton];
-//    
-//    downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
-//    downButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [downButton setFrame:downButtonRect];
-//    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
-//    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
-//    downButton.tag = TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON;
-//    UILongPressGestureRecognizer *downInTimeLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(downButtonOfDemoModeLongPressed:)];
-//    [downInTimeLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//    [downButton addGestureRecognizer:downInTimeLongPressGesture];
-//    [downButton addTarget:self
-//                   action:@selector(downButtonOfDemoModeClicked:)
-//         forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:downButton];
-//    [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
-//    [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
-    
     //Height
     x = 482.0f;
     y = 448.0f;
@@ -785,36 +470,6 @@
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
-    
-//    upButtonRect = CGRectMake(x + width- 25, y + 5 , 20, 20);
-//    upButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [upButton setFrame:upButtonRect];
-//    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp"] forState:UIControlStateNormal];
-//    [upButton setBackgroundImage:[UIImage imageNamed:@"setUp_disable"] forState:UIControlStateDisabled];
-//    upButton.tag = TAG_FOR_HEIGHT_UP_BUTTON;
-//    UILongPressGestureRecognizer *upInHeightLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(upButtonOfHeightLongPressed:)];
-//    [upInHeightLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//    [upButton addGestureRecognizer:upInHeightLongPressGesture];
-//    [upButton addTarget:self
-//                 action:@selector(upButtonOfHeightClicked:)
-//       forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:upButton];
-//    
-//    downButtonRect = CGRectMake(x + width- 25, y + 30 , 20, 20);
-//    downButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [downButton setFrame:downButtonRect];
-//    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown"] forState:UIControlStateNormal];
-//    [downButton setBackgroundImage:[UIImage imageNamed:@"setDown_disable"] forState:UIControlStateDisabled];
-//    downButton.tag = TAG_FOR_HEIGHT_DOWN_BUTTON;
-//    UILongPressGestureRecognizer *downInHeightLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(downButtonOfHeightLongPressed:)];
-//    [downInHeightLongPressGesture setMinimumPressDuration:MINIMUM_PRESS_DURATION];
-//    [downButton addGestureRecognizer:downInHeightLongPressGesture];
-//    [downButton addTarget:self
-//                   action:@selector(downButtonOfHeightClicked:)
-//         forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:downButton];
-//    [upButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
-//    [downButton addTarget:self action:@selector(touchesBegan:withEvent:) forControlEvents:UIControlEventAllEvents];
 }
 
 - (void)updateLabelsAndButtonStatus
