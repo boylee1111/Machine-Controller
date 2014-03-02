@@ -353,34 +353,34 @@
 
 - (void)addSettingLabelsAndButtons
 {
-    SettingBar.layer.borderWidth = 5.0f;
-    SettingBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    SettingBar.layer.cornerRadius = 50.0f;
+//    SettingBar.layer.borderWidth = 5.0f;
+//    SettingBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    SettingBar.layer.cornerRadius = 50.0f;
+//    
+//    MaxSpeedBar.layer.borderWidth = 3.0f;
+//    MaxSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    MaxSpeedBar.layer.cornerRadius = 40.0f;
+//    
+//    DemoModeBar.layer.borderWidth = 3.0f;
+//    DemoModeBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    DemoModeBar.layer.cornerRadius = 40.0f;
+//    
+//    DefaultSpeedBar.layer.borderWidth = 3.0f;
+//    DefaultSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    DefaultSpeedBar.layer.cornerRadius = 40.0f;
+//    
+//    DefaultHeightBar.layer.borderWidth = 3.0f;
+//    DefaultHeightBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    DefaultHeightBar.layer.cornerRadius = 30.0f;
+//    
+//    SpeedInputBox.layer.borderColor = [UIColor blackColor].CGColor;
+//    SpeedInputBox.layer.borderWidth = 3.0f;
     
-    MaxSpeedBar.layer.borderWidth = 3.0f;
-    MaxSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    MaxSpeedBar.layer.cornerRadius = 40.0f;
-    
-    DemoModeBar.layer.borderWidth = 3.0f;
-    DemoModeBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    DemoModeBar.layer.cornerRadius = 40.0f;
-    
-    DefaultSpeedBar.layer.borderWidth = 3.0f;
-    DefaultSpeedBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    DefaultSpeedBar.layer.cornerRadius = 40.0f;
-    
-    DefaultHeightBar.layer.borderWidth = 3.0f;
-    DefaultHeightBar.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    DefaultHeightBar.layer.cornerRadius = 30.0f;
-    
-    SpeedInputBox.layer.borderColor = [UIColor blackColor].CGColor;
-    SpeedInputBox.layer.borderWidth = 3.0f;
-    
-    CGFloat x = 163.0f;
-    CGFloat y = 216.0f;
-    CGFloat difference = 68.0f;
-    CGFloat width = 166.0f;
-    CGFloat height = 55.0f;
+    CGFloat x = 174.0f;
+    CGFloat y = 252.0f;
+    CGFloat difference = 65.6f;
+    CGFloat width = 170.0f;
+    CGFloat height = 62.0f;
     CGRect labelRect;
     UIEdgeInsets edge = UIEdgeInsetsMake(0, 10.0f, 0, 0);
     UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
@@ -405,14 +405,16 @@
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.layer.borderWidth = 3.0f;
+        label.layer.borderWidth = 4.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
     }
     
     //Default Speed Settings
-    x = 792;
+    x = 813;
+    y = 248;
+    difference = 67;
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
         labelRect = CGRectMake(x, y + (i - 1) * difference, width, height);
@@ -425,17 +427,16 @@
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.layer.borderWidth = 3.0f;
+        label.layer.borderWidth = 4.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
     }
     
     //Time
-    x = 458.0f;
-    y = 246.0f;
-    width = 170.0f;
-    height = 55.0f;
+    x = 491.0f;
+    y = 315.0f;
+    width = 153.0f;
     labelRect = CGRectMake(x, y , width, height);
     
     font = [UIFont boldSystemFontOfSize:28.0f];
@@ -446,16 +447,15 @@
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"2 mins";
-    label.layer.borderWidth = 3.0f;
+    label.layer.borderWidth = 4.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
     
     //Height
-    x = 482.0f;
-    y = 448.0f;
-    width = 146.0f;
-    height = 55.0f;
+    x = 494.0f;
+    y = 488.0f;
+    width = 153.0f;
     labelRect = CGRectMake(x, y , width, height);
     
     font = [UIFont boldSystemFontOfSize:28.0f];
@@ -466,7 +466,7 @@
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"1.70m";
-    label.layer.borderWidth = 3.0f;
+    label.layer.borderWidth = 4.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
