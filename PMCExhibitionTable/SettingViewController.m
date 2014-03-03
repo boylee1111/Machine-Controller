@@ -9,29 +9,34 @@
 #import "SettingViewController.h"
 #import "TACSettingManager.h"
 #import "InsetsLabel.h"
+#import "TACPlateViewController.h"
 
 #define BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL 300
 #define BASE_TAG_FOR_MAX_SPEED_SETTING_UP_BUTTON 330
 #define BASE_TAG_FOR_MAX_SPEED_SETTING_DOWN_BUTTON 360
+#define BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON 310
 
 #define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL 400
 #define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_UP_BUTTON 430
 #define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_DOWN_BUTTON 460
+#define BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON 410
 
 #define TAG_FOR_DEMO_MODE_TIME_LABEL 500
 #define TAG_FOR_DEMO_MODE_TIME_UP_BUTTON 530
 #define TAG_FOR_DEMO_MODE_TIME_DOWN_BUTTON 560
+#define TAG_FOR_DEMO_MODE_TIME_TRANS_BUTTON 510
 
 #define TAG_FOR_HEIGHT_LABEL 600
 #define TAG_FOR_HEIGHT_UP_BUTTON 630
 #define TAG_FOR_HEIGHT_DOWN_BUTTON 660
+#define TAG_FOR_HEIGHT_TRANS_BUTTON 610
 
 #define BACK_TO_MAIN_TIME_INTERVAL 60
 
 #define MINIMUM_PRESS_DURATION 0.5
 #define LONG_PRESS_VALUE_CHANGE_INTERVAL 0.1
 
-@interface SettingViewController () {
+@interface SettingViewController() {
     NSTimer *backTimer;
     NSInteger unTouchedTime;
     CGPoint touchPoint;
@@ -328,7 +333,7 @@
         [self backViaTiming];
     }
     lastTouchPoint = touchPoint;
-    NSLog(@"%d",unTouchedTime);
+//    NSLog(@"%d",unTouchedTime);
 
     
 }
@@ -385,14 +390,10 @@
     UIEdgeInsets edge = UIEdgeInsetsMake(0, 10.0f, 0, 0);
     UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
     
-    CGRect upButtonRect;
-    CGRect downButtonRect;
-    
     InsetsLabel* label;
-    UIButton* upButton;
-    UIButton* downButton;
+    UIButton *transClickLabel;
     
-
+    UITapGestureRecognizer *clickGesture;
     
     //Maximum Speed Setting
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
@@ -405,10 +406,17 @@
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.layer.borderWidth = 4.0f;
-        label.layer.borderColor = [UIColor blackColor].CGColor;
+//        label.layer.borderWidth = 4.0f;
+//        label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i;
+        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+        clickGesture.numberOfTapsRequired = 1;
         [self.view addSubview:label];
+        
+        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+        transClickLabel.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + i;
+        [self.view addSubview:transClickLabel];
+        [transClickLabel addGestureRecognizer:clickGesture];
     }
     
     //Default Speed Settings
@@ -431,6 +439,14 @@
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
+        
+        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+        clickGesture.numberOfTapsRequired = 1;
+        [self.view addSubview:label];
+        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+        transClickLabel.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + i;
+        [self.view addSubview:transClickLabel];
+        [transClickLabel addGestureRecognizer:clickGesture];
     }
     
     //Time
@@ -451,6 +467,13 @@
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
+    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+    clickGesture.numberOfTapsRequired = 1;
+    [self.view addSubview:label];
+    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+    transClickLabel.tag = TAG_FOR_DEMO_MODE_TIME_TRANS_BUTTON;
+    [self.view addSubview:transClickLabel];
+    [transClickLabel addGestureRecognizer:clickGesture];
     
     //Height
     x = 494.0f;
@@ -470,6 +493,21 @@
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
+    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+    clickGesture.numberOfTapsRequired = 1;
+    [self.view addSubview:label];
+    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+    transClickLabel.tag = TAG_FOR_HEIGHT_TRANS_BUTTON;
+    [self.view addSubview:transClickLabel];
+    [transClickLabel addGestureRecognizer:clickGesture];
+}
+
+- (void) clickLabel:(UITapGestureRecognizer *)sender
+{
+    NSLog(@"tag%d", sender.view.tag);
+    TACPlateViewController *plateView = [[TACPlateViewController alloc]initWithNibName:@"TACPlateViewController" bundle:nil];
+    [self addChildViewController:plateView];
+    [self.view addSubview:plateView.view];
 }
 
 - (void)updateLabelsAndButtonStatus
@@ -593,7 +631,7 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [[event allTouches] anyObject];
     touchPoint = [touch locationInView:self.view];
-    NSLog(@"Touch x : %f y : %f", touchPoint.x, touchPoint.y);
+//    NSLog(@"Touch x : %f y : %f", touchPoint.x, touchPoint.y);
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController<UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *SettingBar;
 @property (strong, nonatomic) IBOutlet UILabel *MaxSpeedBar;
 @property (strong, nonatomic) IBOutlet UILabel *DemoModeBar;

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2931D252187D294000752049 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2931D251187D294000752049 /* SettingViewController.m */; };
 		29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29603E2B187D745200F562C7 /* InsetsLabel.m */; };
+		29BF5B1518C3257500FEDA23 /* TACPlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29BF5B1318C3257500FEDA23 /* TACPlateViewController.xib */; };
+		29FCF8BE18C49A9300FA536E /* TACPlateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BF5B1218C3257500FEDA23 /* TACPlateViewController.m */; };
 		706BCFB455AF4476A221DBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10653A32EAB472B9B1AC03B /* libPods.a */; };
 		A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A077A672187D86AE008F97A4 /* TACSettingManager.m */; };
 		A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A07ACBFC187E8AD100F8479D /* Images.xcassets */; };
@@ -46,6 +48,9 @@
 		2931D251187D294000752049 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		29603E2A187D745200F562C7 /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InsetsLabel.h; path = ../InsetsLabel.h; sourceTree = "<group>"; };
 		29603E2B187D745200F562C7 /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InsetsLabel.m; path = ../InsetsLabel.m; sourceTree = "<group>"; };
+		29BF5B1118C3257500FEDA23 /* TACPlateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACPlateViewController.h; sourceTree = "<group>"; };
+		29BF5B1218C3257500FEDA23 /* TACPlateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACPlateViewController.m; sourceTree = "<group>"; };
+		29BF5B1318C3257500FEDA23 /* TACPlateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TACPlateViewController.xib; sourceTree = "<group>"; };
 		A01FEA7B187D5CE600B6434F /* CommandExporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandExporter.h; sourceTree = "<group>"; };
 		A077A671187D86AE008F97A4 /* TACSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TACSettingManager.h; sourceTree = "<group>"; };
 		A077A672187D86AE008F97A4 /* TACSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TACSettingManager.m; sourceTree = "<group>"; };
@@ -109,8 +114,6 @@
 			children = (
 				29603E2A187D745200F562C7 /* InsetsLabel.h */,
 				29603E2B187D745200F562C7 /* InsetsLabel.m */,
-				D81D8B53187FD5A800D9FBC1 /* MBSliderView.h */,
-				D81D8B54187FD5A800D9FBC1 /* MBSliderView.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -150,6 +153,9 @@
 		D8E2542D187AC2D500C0913E /* PMCExhibitionTable */ = {
 			isa = PBXGroup;
 			children = (
+				29BF5B1118C3257500FEDA23 /* TACPlateViewController.h */,
+				29BF5B1218C3257500FEDA23 /* TACPlateViewController.m */,
+				29BF5B1318C3257500FEDA23 /* TACPlateViewController.xib */,
 				A01FEA7B187D5CE600B6434F /* CommandExporter.h */,
 				A07ACBF6187E824200F8479D /* Components */,
 				A07ACBFC187E8AD100F8479D /* Images.xcassets */,
@@ -285,6 +291,7 @@
 			files = (
 				A07ACBFD187E8AD100F8479D /* Images.xcassets in Resources */,
 				D81D8B5D187FF38900D9FBC1 /* TACInfoViewController.xib in Resources */,
+				29BF5B1518C3257500FEDA23 /* TACPlateViewController.xib in Resources */,
 				D8E25432187AC2D500C0913E /* InfoPlist.strings in Resources */,
 				D8E2543B187AC2D500C0913E /* Main.storyboard in Resources */,
 			);
@@ -338,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29FCF8BE18C49A9300FA536E /* TACPlateViewController.m in Sources */,
 				29603E2C187D745200F562C7 /* InsetsLabel.m in Sources */,
 				A077A673187D86AE008F97A4 /* TACSettingManager.m in Sources */,
 				D8E25434187AC2D500C0913E /* main.m in Sources */,
@@ -345,7 +353,6 @@
 				D8E25438187AC2D500C0913E /* TACAppDelegate.m in Sources */,
 				A0DFDEDF188013BF00735A96 /* MBSliderView.m in Sources */,
 				D81D8B58187FD63200D9FBC1 /* TACLockedViewController.m in Sources */,
-				D81D8B55187FD5A800D9FBC1 /* MBSliderView.m in Sources */,
 				D81D8B5C187FF38900D9FBC1 /* TACInfoViewController.m in Sources */,
 				2931D252187D294000752049 /* SettingViewController.m in Sources */,
 			);
