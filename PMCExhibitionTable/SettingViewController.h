@@ -17,5 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *SpeedInputBox;
 
 - (IBAction)close:(id)sender;
+- (void)updateLabelsAndButtonStatus;
+
 
 @end

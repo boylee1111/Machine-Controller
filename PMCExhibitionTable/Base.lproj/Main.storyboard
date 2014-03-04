@@ -249,6 +249,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdF-j7-ZJ6">
+                                <rect key="frame" x="823" y="26" width="136" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Back" backgroundImage="arrow">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="DgW-fR-ni6" eventType="touchUpInside" id="Yh2-hN-egC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -283,6 +295,7 @@
         <image name="ametekButton" width="325" height="142"/>
         <image name="ametekButton_selected" width="651" height="285"/>
         <image name="ametekLogo" width="191" height="29"/>
+        <image name="arrow" width="175" height="125"/>
         <image name="background" width="1024" height="768"/>
         <image name="demoButton" width="12" height="9"/>
         <image name="dunkermotoren" width="358" height="141"/>

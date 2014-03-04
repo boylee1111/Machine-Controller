@@ -383,9 +383,9 @@
     
     CGFloat x = 174.0f;
     CGFloat y = 252.0f;
-    CGFloat difference = 65.6f;
+    CGFloat difference = 66.0f;
     CGFloat width = 170.0f;
-    CGFloat height = 62.0f;
+    CGFloat height = 58.0f;
     CGRect labelRect;
     UIEdgeInsets edge = UIEdgeInsetsMake(0, 10.0f, 0, 0);
     UIFont* font = [UIFont boldSystemFontOfSize:28.0f];
@@ -435,7 +435,6 @@
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-        label.layer.borderWidth = 4.0f;
         label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
@@ -463,7 +462,6 @@
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"2 mins";
-    label.layer.borderWidth = 4.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
@@ -489,7 +487,6 @@
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor whiteColor];
     label.text = @"1.70m";
-    label.layer.borderWidth = 4.0f;
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
@@ -506,6 +503,8 @@
 {
     NSLog(@"tag%d", sender.view.tag);
     TACPlateViewController *plateView = [[TACPlateViewController alloc]initWithNibName:@"TACPlateViewController" bundle:nil];
+    [plateView setTag:sender.view.tag];
+    [plateView setSettingViewController:self];
     [self addChildViewController:plateView];
     [self.view addSubview:plateView.view];
 }
