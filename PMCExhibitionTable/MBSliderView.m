@@ -56,7 +56,7 @@ static const CGFloat gradientDimAlpha = 0.5;
 - (void) loadContent {
     
 //    self.backgroundColor = [UIColor colorWithRed:166.0/255.0 green:166.0/255.0 blue:166.0/255.0 alpha:1.0];
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor clearColor];
     [self.layer setCornerRadius:11*[UIScreen mainScreen].scale];
     self.userInteractionEnabled = YES;
     
