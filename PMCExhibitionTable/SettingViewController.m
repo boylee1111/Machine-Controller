@@ -333,7 +333,7 @@
         [self backViaTiming];
     }
     lastTouchPoint = touchPoint;
-//    NSLog(@"%d",unTouchedTime);
+    NSLog(@"%d",unTouchedTime);
 
     
 }
