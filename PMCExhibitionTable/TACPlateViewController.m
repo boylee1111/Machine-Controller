@@ -90,7 +90,7 @@
 //    } else if (flag == HEIGHT_FLAG) {
 //        plateDisp.text = [NSString stringWithFormat:@"%.2f m", height];
 //    }
-    [self updatePlateNumber];
+    [self dispCurrentPlateNumber];
 }
 
 - (void)viewDidLoad
@@ -110,7 +110,7 @@
 - (IBAction)clickOK:(id)sender {
     
     if (flag == ROTATE_SPEED_FLAG) {
-        if (rmpNumber <10 || rmpNumber > 1500) {
+        if ((rmpNumber <10 && rmpNumber != 0) || rmpNumber > 1500) {
             [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The speed should be between 10 rmp to 1500 rmp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         } else {
             if (Tag >= BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + 8) {
@@ -231,6 +231,33 @@
 - (IBAction)clickExit:(UIButton *)sender {
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+}
+
+- (void)dispCurrentPlateNumber {
+    if (flag == ROTATE_SPEED_FLAG) {
+        if (Tag >= BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + 8) {
+            int i = Tag - BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON;
+            int _rmpNumber = [[TACSettingManager sharedManager] maxSpeedOfMotor:i];
+            plateDisp.text = [NSString stringWithFormat:@"%d rmp", (int)_rmpNumber];
+        } else if (Tag >= BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + 8) {
+            int i = Tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON;
+            int _rmpNumber = [[TACSettingManager sharedManager] defaultSpeedOfMotor:i];
+            plateDisp.text = [NSString stringWithFormat:@"%d rmp", (int)_rmpNumber];
+        }
+    } else if (flag == TIME_FLAG) {
+        
+            int seconds = [TACSettingManager sharedManager].DemoModeTime;
+            int _min = seconds / 60;
+            int _sec = seconds % 60;
+        if (_sec < 10) {
+            plateDisp.text = [NSString stringWithFormat:@"%d min 0%d sed", _min, _sec];
+        } else {
+            plateDisp.text = [NSString stringWithFormat:@"%d min %d sed", _min, _sec];
+        }
+    } else if (flag == HEIGHT_FLAG) {
+        float _height = ((float)[TACSettingManager sharedManager].Height) / 100;
+        plateDisp.text = [NSString stringWithFormat:@"%.2f m", _height];
+    }
 }
 
 - (void)updatePlateNumber {

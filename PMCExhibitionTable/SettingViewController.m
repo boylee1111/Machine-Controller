@@ -398,7 +398,21 @@
     //Maximum Speed Setting
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
+        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+        clickGesture.numberOfTapsRequired = 1;
+        
         labelRect = CGRectMake(x, y + (i - 1) * difference, width, height);
+        
+        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+        transClickLabel.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + i;
+        transClickLabel.backgroundColor = [UIColor blackColor];
+        transClickLabel.layer.shadowOffset = CGSizeMake(4, 4);
+        transClickLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        transClickLabel.layer.shadowOpacity = 0.8;
+        transClickLabel.layer.shadowRadius = 4;
+        [self.view addSubview:transClickLabel];
+        [transClickLabel addGestureRecognizer:clickGesture];
+
         
         label = [[InsetsLabel alloc]initWithFrame:labelRect andInsets:edge];
         
@@ -406,18 +420,15 @@
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.text = @"1200rmp";
-//        label.layer.borderWidth = 4.0f;
-//        label.layer.borderColor = [UIColor blackColor].CGColor;
         label.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_LABEL + i;
-        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
-        clickGesture.numberOfTapsRequired = 1;
+        label.layer.shadowOffset = CGSizeMake(4, 4);
+        label.layer.shadowColor = [UIColor blackColor].CGColor;
+        label.layer.shadowOpacity = 0.8;
+        label.layer.shadowRadius = 4;
+        
         [self.view addSubview:label];
         
-        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
-        transClickLabel.tag = BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + i;
-        [self.view addSubview:transClickLabel];
-        [transClickLabel addGestureRecognizer:clickGesture];
-    }
+            }
     
     //Default Speed Settings
     x = 813;
@@ -426,6 +437,19 @@
     for (NSInteger i = 1; i <= MOTOR_COUNT; i++) {
         
         labelRect = CGRectMake(x, y + (i - 1) * difference, width, height);
+        
+        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+        clickGesture.numberOfTapsRequired = 1;
+        [self.view addSubview:label];
+        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+        transClickLabel.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + i;
+        transClickLabel.backgroundColor = [UIColor blackColor];
+        transClickLabel.layer.shadowOffset = CGSizeMake(4, 4);
+        transClickLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        transClickLabel.layer.shadowOpacity = 0.8;
+        transClickLabel.layer.shadowRadius = 4;
+        [self.view addSubview:transClickLabel];
+        [transClickLabel addGestureRecognizer:clickGesture];
         
         font = [UIFont boldSystemFontOfSize:28.0f];
         
@@ -439,13 +463,7 @@
         label.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_LABEL + i;
         [self.view addSubview:label];
         
-        clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
-        clickGesture.numberOfTapsRequired = 1;
-        [self.view addSubview:label];
-        transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
-        transClickLabel.tag = BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + i;
-        [self.view addSubview:transClickLabel];
-        [transClickLabel addGestureRecognizer:clickGesture];
+        
     }
     
     //Time
@@ -453,6 +471,20 @@
     y = 315.0f;
     width = 153.0f;
     labelRect = CGRectMake(x, y , width, height);
+    
+    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+    clickGesture.numberOfTapsRequired = 1;
+    [self.view addSubview:label];
+    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+    transClickLabel.tag = TAG_FOR_DEMO_MODE_TIME_TRANS_BUTTON;
+    transClickLabel.backgroundColor = [UIColor blackColor];
+    transClickLabel.layer.shadowOffset = CGSizeMake(4, 4);
+    transClickLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    transClickLabel.layer.shadowOpacity = 0.8;
+    transClickLabel.layer.shadowRadius = 4;
+    [self.view addSubview:transClickLabel];
+    [transClickLabel addGestureRecognizer:clickGesture];
+
     
     font = [UIFont boldSystemFontOfSize:28.0f];
     
@@ -465,19 +497,24 @@
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_DEMO_MODE_TIME_LABEL;
     [self.view addSubview:label];
-    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
-    clickGesture.numberOfTapsRequired = 1;
-    [self.view addSubview:label];
-    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
-    transClickLabel.tag = TAG_FOR_DEMO_MODE_TIME_TRANS_BUTTON;
-    [self.view addSubview:transClickLabel];
-    [transClickLabel addGestureRecognizer:clickGesture];
     
     //Height
     x = 494.0f;
     y = 488.0f;
     width = 153.0f;
     labelRect = CGRectMake(x, y , width, height);
+    
+    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
+    clickGesture.numberOfTapsRequired = 1;
+    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
+    transClickLabel.tag = TAG_FOR_HEIGHT_TRANS_BUTTON;
+    transClickLabel.backgroundColor = [UIColor blackColor];
+    transClickLabel.layer.shadowOffset = CGSizeMake(4, 4);
+    transClickLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    transClickLabel.layer.shadowOpacity = 0.8;
+    transClickLabel.layer.shadowRadius = 4;
+    [self.view addSubview:transClickLabel];
+    [transClickLabel addGestureRecognizer:clickGesture];
     
     font = [UIFont boldSystemFontOfSize:28.0f];
     
@@ -490,13 +527,9 @@
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.tag = TAG_FOR_HEIGHT_LABEL;
     [self.view addSubview:label];
-    clickGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickLabel:)];
-    clickGesture.numberOfTapsRequired = 1;
+    
     [self.view addSubview:label];
-    transClickLabel = [[UIButton alloc]initWithFrame:labelRect];
-    transClickLabel.tag = TAG_FOR_HEIGHT_TRANS_BUTTON;
-    [self.view addSubview:transClickLabel];
-    [transClickLabel addGestureRecognizer:clickGesture];
+    
 }
 
 - (void) clickLabel:(UITapGestureRecognizer *)sender
