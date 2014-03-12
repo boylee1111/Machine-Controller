@@ -20,6 +20,8 @@
 
 
 @interface TACPlateViewController () {
+    BOOL clickOrNot;
+    
     int Tag;
     int flag;
     int rmpNumber;
@@ -54,6 +56,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        clickOrNot = false;
         Tag = 0;
         flag = 0;
         rmpNumber = 0;
@@ -79,17 +82,17 @@
         flag = HEIGHT_FLAG;
     }
     
-//    if (flag == ROTATE_SPEED_FLAG) {
-//        plateDisp.text = [NSString stringWithFormat:@"%d rmp", (int)rmpNumber];
-//    } else if (flag == TIME_FLAG) {
-//        if (sec < 10) {
-//            plateDisp.text = [NSString stringWithFormat:@"%d min 0%d sed", min, sec];
-//        } else {
-//            plateDisp.text = [NSString stringWithFormat:@"%d min %d sed", min, sec];
-//        }
-//    } else if (flag == HEIGHT_FLAG) {
-//        plateDisp.text = [NSString stringWithFormat:@"%.2f m", height];
-//    }
+    //    if (flag == ROTATE_SPEED_FLAG) {
+    //        plateDisp.text = [NSString stringWithFormat:@"%d rmp", (int)rmpNumber];
+    //    } else if (flag == TIME_FLAG) {
+    //        if (sec < 10) {
+    //            plateDisp.text = [NSString stringWithFormat:@"%d min 0%d sed", min, sec];
+    //        } else {
+    //            plateDisp.text = [NSString stringWithFormat:@"%d min %d sed", min, sec];
+    //        }
+    //    } else if (flag == HEIGHT_FLAG) {
+    //        plateDisp.text = [NSString stringWithFormat:@"%.2f m", height];
+    //    }
     [self dispCurrentPlateNumber];
 }
 
@@ -108,53 +111,57 @@
 
 
 - (IBAction)clickOK:(id)sender {
-    
-    if (flag == ROTATE_SPEED_FLAG) {
-        if ((rmpNumber <10 && rmpNumber != 0) || rmpNumber > 1500) {
-            [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The speed should be between 10 rmp to 1500 rmp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        } else {
-            if (Tag >= BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + 8) {
-                int i = Tag - BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON;
-                
-                [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
-                                                         withSpeed:rmpNumber];
-                if ([[TACSettingManager sharedManager] maxSpeedOfMotor:i] < [[TACSettingManager sharedManager] defaultSpeedOfMotor:i]) {
-                    [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
-                                                                 withSpeed:rmpNumber];
-                }
-            } else if (Tag >= BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + 8) {
-                int i = Tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON;
-                [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
-                                                             withSpeed:rmpNumber];
-                if ([[TACSettingManager sharedManager] maxSpeedOfMotor:i] < [[TACSettingManager sharedManager] defaultSpeedOfMotor:i]) {
+    if (!clickOrNot) {
+        [self clickExit:sender];
+    } else
+        if (flag == ROTATE_SPEED_FLAG) {
+            if ((rmpNumber <10 && rmpNumber != 0) || rmpNumber > 1500) {
+                [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The speed should be 0 rmp or ranged from 10 rmp to 1500 rmp" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            } else {
+                if (Tag >= BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON + 8) {
+                    int i = Tag - BASE_TAG_FOR_MAX_SPEED_SETTING_TRANS_BUTTON;
+                    
                     [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
+                                                                 withSpeed:rmpNumber];
+                    if ([[TACSettingManager sharedManager] maxSpeedOfMotor:i] < [[TACSettingManager sharedManager] defaultSpeedOfMotor:i]) {
+                        [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
+                                                                         withSpeed:rmpNumber];
+                    }
+                } else if (Tag >= BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON && Tag < BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON + 8) {
+                    int i = Tag - BASE_TAG_FOR_DEFAULT_SPEED_SETTING_TRANS_BUTTON;
+                    [[TACSettingManager sharedManager] setDefaultSpeedforMotor:i
                                                                      withSpeed:rmpNumber];
+                    if ([[TACSettingManager sharedManager] maxSpeedOfMotor:i] < [[TACSettingManager sharedManager] defaultSpeedOfMotor:i]) {
+                        [[TACSettingManager sharedManager] setMaxSpeedforMotor:i
+                                                                     withSpeed:rmpNumber];
+                    }
+                    
                 }
-
+                [self clickExit:sender];
             }
-            [self clickExit:sender];
+        } else if (flag == TIME_FLAG) {
+            if (sec >= 60) {
+                [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The second should be ranged from 0 sec to 59 sec" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            } else {
+                [[TACSettingManager sharedManager] setDemoModeTime:min * 60 + sec];
+                [self clickExit:sender];
+            }
+        } else if (flag == HEIGHT_FLAG) {
+            if (height > 2.0f || height < 1.2f) {
+                [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The height should be ranged from 1.20 m to 2.00 m" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            } else {
+                [[TACSettingManager sharedManager] setHeight:height * 100];
+                [self clickExit:sender];
+            }
         }
-    } else if (flag == TIME_FLAG) {
-        if (sec >= 60) {
-            [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The second should be between 0 sec to 59 sec" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        } else {
-            [[TACSettingManager sharedManager] setDemoModeTime:min * 60 + sec];
-            [self clickExit:sender];
-        }
-    } else if (flag == HEIGHT_FLAG) {
-        if (height > 2.0f || height < 1.2f) {
-            [[[UIAlertView alloc]initWithTitle:@"Out of range" message:@"The height should be between 1.20 m to 2.00 m" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        } else {
-            [[TACSettingManager sharedManager] setHeight:height * 100];
-            [self clickExit:sender];
-        }
-    }
     if (FatherViewController != nil) {
         [FatherViewController updateLabelsAndButtonStatus];
     }
 }
 
 - (IBAction)clickDelete:(id)sender {
+    clickOrNot = true;
+    
     if (flag == ROTATE_SPEED_FLAG) {
         rmpNumber = rmpNumber / 10;
     } else if (flag == TIME_FLAG) {
@@ -196,6 +203,8 @@
 }
 
 - (IBAction)clickNum:(UIButton *)sender {
+    clickOrNot = true;
+    
     int value = [sender.currentTitle intValue];
     if (flag == ROTATE_SPEED_FLAG) {
         if (rmpNumber * 10 + value < 10000) {
@@ -246,9 +255,9 @@
         }
     } else if (flag == TIME_FLAG) {
         
-            int seconds = [TACSettingManager sharedManager].DemoModeTime;
-            int _min = seconds / 60;
-            int _sec = seconds % 60;
+        int seconds = [TACSettingManager sharedManager].DemoModeTime;
+        int _min = seconds / 60;
+        int _sec = seconds % 60;
         if (_sec < 10) {
             plateDisp.text = [NSString stringWithFormat:@"%d min 0%d sed", _min, _sec];
         } else {
